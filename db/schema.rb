@@ -10,9 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2021_03_09_115724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "games", force: :cascade do |t|
+    t.string "status"
+    t.text "draw_pile_cards", default: [], array: true
+    t.text "discard_pile_cards", default: [], array: true
+    t.integer "player_count"
+    t.bigint "host_id"
+    t.bigint "current_player_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["current_player_id"], name: "index_games_on_current_player_id"
+    t.index ["host_id"], name: "index_games_on_host_id"
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string "name"
+    t.boolean "alive", default: true
+    t.text "cards", default: [], array: true
+    t.integer "table_position"
+    t.integer "draw_card_count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "game_id"
+    t.index ["game_id"], name: "index_players_on_game_id"
+  end
+
+  add_foreign_key "games", "players", column: "current_player_id"
+  add_foreign_key "games", "players", column: "host_id"
+  add_foreign_key "players", "games"
 end
