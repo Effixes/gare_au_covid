@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_09_115724) do
+ActiveRecord::Schema.define(version: 2021_03_09_160439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_115724) do
     t.string "status"
     t.text "draw_pile_cards", default: [], array: true
     t.text "discard_pile_cards", default: [], array: true
-    t.integer "player_count"
+    t.integer "players_count"
     t.bigint "host_id"
     t.bigint "current_player_id"
     t.datetime "created_at", precision: 6, null: false
@@ -33,10 +33,11 @@ ActiveRecord::Schema.define(version: 2021_03_09_115724) do
     t.boolean "alive", default: true
     t.text "cards", default: [], array: true
     t.integer "table_position"
-    t.integer "draw_card_count"
+    t.integer "draw_card_count", default: 1
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "game_id"
+    t.string "avatar"
     t.index ["game_id"], name: "index_players_on_game_id"
   end
 
