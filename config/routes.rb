@@ -1,4 +1,23 @@
 Rails.application.routes.draw do
   root to: 'pages#home'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  resources :games, only: [:create, :show] do
+    resources :players, only: [:create]
+
+    member do
+      # /games/:id/start
+      patch :start
+      patch :change_player
+      patch :draw
+    end
+
+    resources :played_cards, only: [:create]
+
+    # /games/top
+    # collection do
+    #   get :top
+    # end
+  end
+
 end
