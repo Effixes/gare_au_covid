@@ -1,0 +1,11 @@
+{
+  "apps": [
+    {
+      "app_id": "app_1ef5f2c8-eb81-4595-a290-14dd204c497a",
+      "org_id": "user_4c9e53f8-d31b-4e4f-b03a-4406969b7c28",
+      "deploy_url": "https://push-par-clevercloud-customers.services.clever-cloud.com/app_1ef5f2c8-eb81-4595-a290-14dd204c497a.git",
+      "name": "gare_au_covid",
+      "alias": "gare_au_covid"
+    }
+  ]
+}
