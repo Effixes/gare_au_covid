@@ -13,7 +13,7 @@ class Cards::Mix < Cards::Base
 
   # Effet sur le joueur actuel
   def current_player_effect
-    @current_player.cards.delete_at(@current_player.cards.index("mixed"))
+    @current_player.cards.delete_at(@current_player.cards.index("mix"))
   end
 
   # Effet sur la pioche
@@ -23,6 +23,6 @@ class Cards::Mix < Cards::Base
 
   # Effet sur la defausse
   def discard_effect
-    @game.discard_pile_cards << "mixed"
+    @game.discard_pile_cards << "mix"
   end
 end

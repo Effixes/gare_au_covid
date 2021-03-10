@@ -8,7 +8,7 @@ class Game < ApplicationRecord
 
   def next_player
     alive_players = players.where(alive: true).order(:table_position)
-    next_player_index = (alive_players.index(current_player) + 1) % alive_players.lenght
+    next_player_index = (alive_players.index(current_player) + 1) % alive_players.length
     alive_players[next_player_index]
   end
 
