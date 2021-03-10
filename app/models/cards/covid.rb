@@ -13,6 +13,6 @@ class Cards::Covid < Cards::Base
   end
 
   def draw_effect
-    @game.draw_pile_cards.insert(rand(0...@game.draw_pile_cards.lenght), 'covid')
+    @game.draw_pile_cards.insert(rand(0...@game.draw_pile_cards.length), 'covid')
   end
 end

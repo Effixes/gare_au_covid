@@ -2,7 +2,8 @@ class Cards::Pair < Cards::Base
 
   # Aucun effet seul mais permet de voler une carte aleatoire si paire
   #
-  def initialize(code)
+  def initialize(game, code)
+    super(game)
     @code = code
   end
 
@@ -17,9 +18,8 @@ class Cards::Pair < Cards::Base
     @next_player.cards.delete_at(@next_player.cards.index(stolen_card))
   end
 
-
   def discard_effect
-    discard_pile_cards << @code
+    @game.discard_pile_cards << @code
+    @game.discard_pile_cards << @code
   end
 end
-
