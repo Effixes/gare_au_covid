@@ -1,7 +1,10 @@
 class Game < ApplicationRecord
-  has_many :players
-  belongs_to :host, class_name: 'Player', optional: true
-  belongs_to :current_player, class_name: 'Player', optional: true
+  belongs_to :host,           class_name: 'Player', optional: true, dependent: :destroy
+  belongs_to :current_player, class_name: 'Player', optional: true, dependent: :destroy
+
+  has_many :players, dependent: :destroy
+
+  validates :status, inclusion: {in: ['waiting', 'on_going', 'over']}
 
   def next_player
     alive_players = players.where(alive: true).order(:table_position)
@@ -10,42 +13,6 @@ class Game < ApplicationRecord
   end
 
   def start
-    # repartir cartes
-
-    # definir table_position des players
-
-    # position du current_player
-
-    # statut du jeu : demarre
+    StartGame.new(self).call
   end
-
-  private
-    def cards_dispatch
-    # repartir cartes :
-
-    # un kit a chaque joueur
-
-    # jeu sans covid
-    # melange jeu
-    # distrib aux joueurs
-    # integrer covid
-    # melange jeu
-
-
-    end
-
-    def initialize_player_position
-    # definir table_position des players
-      # melanger tableau de joueurs
-    end
-
-    def current_player_position
-    # position du current_player
-
-    end
-
-    # statut du jeu : demarre
-
-
-
 end
