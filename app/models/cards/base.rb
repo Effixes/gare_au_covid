@@ -12,7 +12,6 @@ class Cards::Base
     current_player_effect
     next_player_effect
     draw_effect
-
   end
 
 end
