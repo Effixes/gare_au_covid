@@ -1,0 +1,9 @@
+
+<%= simple_form_for(@game) do |f| %>
+  <%= f.simple_fields_for :players do |player_form| %>
+    <%= player_form.input :name %>
+    <%= player_form.input :avatar, collection: Player::AVATARS, as: :radio_buttons %>
+  <% end %>
+  <%= f.input :players_count %>
+  <%= f.submit %>
+<% end %>
