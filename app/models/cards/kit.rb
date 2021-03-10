@@ -2,7 +2,7 @@
 # Kit pioche : no effect,
 # Kit - 1 dans draw_pile
 # Debut du tour next_player
-class Cards::Kit # < Cards::Base
+class Cards::Kit < Cards::Base
 
   def current_player_effect
 

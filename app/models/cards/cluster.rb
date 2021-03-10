@@ -5,7 +5,7 @@
 # Effet sur la defausse (cluster + 1)
 # Effet sur la pioche ()
 # joueur suivant pioche 2 fois a la fin du tour
-class Cards::Cluster
+class Cards::Cluster < Cards::Base
   # Effet sur le joueur suivant
   def next_player_effect
     # le prochain joueur pioche deux fois

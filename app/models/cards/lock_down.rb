@@ -1,6 +1,6 @@
 # Define the different effect of the card:
 # retire 1 au nombre de carte a piocher
-class Cards::LockDown
+class Cards::LockDown < Cards::Base
   # Effet sur le joueur suivant
   def next_player_effect
   end

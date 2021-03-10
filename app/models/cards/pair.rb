@@ -1,4 +1,4 @@
-class Cards::Pair
+class Cards::Pair < Cards::Base
 
   # Aucun effet seul mais permet de voler une carte aleatoire si paire
   #

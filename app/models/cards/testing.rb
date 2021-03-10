@@ -1,4 +1,4 @@
-class Cards::Testing # < Cards::Base
+class Cards::Testing < Cards::Base
   # Regarde les 3 premieres cartes de la pioche
   def current_player_effect
     @current_player.cards.delete_at(@current_player.cards.index('testing'))
