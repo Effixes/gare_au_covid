@@ -3,6 +3,7 @@ class Game < ApplicationRecord
   belongs_to :current_player, class_name: 'Player', optional: true, dependent: :destroy
 
   has_many :players, dependent: :destroy
+  accepts_nested_attributes_for :players
 
   validates :status, inclusion: {in: ['waiting', 'on_going', 'over']}
 
