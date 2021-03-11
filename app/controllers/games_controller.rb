@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: :show
+  before_action :set_game, only: [:show, :start]
 
   def show
     @curent_status = 
@@ -24,7 +24,14 @@ class GamesController < ApplicationController
       redirect_to game_path(@game)
     end
 
-    
+    def start
+      if current_player == @game.host
+        StartGame.new(@game).call
+      else
+        flash[:alert] = "En attente de la création de la partie"
+      end
+      redirect_to game_path(@game)
+    end
     
     private
 
