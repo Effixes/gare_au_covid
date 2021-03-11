@@ -1,1 +1,7 @@
 <h1>C'est quand qu'on commence?</h1>
+
+<% if current_player == @game.host  %>
+  <%= link_to "Démarrer la partie", start_game_path(@game), method: "patch" %>
+<% else %>
+  <p>En attente de la création de la partie</p>
+<% end %>

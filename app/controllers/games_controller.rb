@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :draw]
+  before_action :set_game, only: [:show, :draw, :start]
 
   def show
 
@@ -24,7 +24,16 @@ class GamesController < ApplicationController
       set_current_player(@game.players.first)
       redirect_to game_path(@game)
     end
-
+  
+    def start
+      if current_player == @game.host
+        StartGame.new(@game).call
+      else
+        flash[:alert] = "En attente de la création de la partie"
+      end
+      redirect_to game_path(@game)
+    end
+    
     def play_card(card_code)
       PlayCard.new(@game, card_code).call
     end
