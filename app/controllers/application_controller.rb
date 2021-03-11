@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
- helper_method :current_player
+  helper_method :current_player
 
   def current_player
     @current_player ||= begin
@@ -13,8 +13,7 @@ class ApplicationController < ActionController::Base
 
   def set_current_player(player)
     @current_player = player
-    
+
     session[:player_id] = player.id
   end
-
 end
