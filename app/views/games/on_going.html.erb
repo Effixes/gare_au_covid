@@ -1,7 +1,57 @@
 <h1>C'est le feu ce jeu!</h1>
 
-<%= params  %>
+<div class="container">
+<div class="players_vs" style="border: solid ; margin: 20px">
+<h3>Les autres joueurs</h3>
+<% @game.players.each do |player| %>
+<% unless player == current_player%>
+<li> <%= player.name %> </li>
+<%end%>
+<%end%>
+</div>
+</div>
 
+<div class="container" >
+<div class="params" style="border: solid ; margin: 20px">
+<h3>Infos params:</h3>
+<%= params  %>
+</div>
+</div>
+
+
+<div class="container">
+<div class="draw" style="border: solid ; margin: 20px">
+<h3>Piocher</h3>
+<%= current_player.draw_card_count %>
 <%=  link_to 'pioche', draw_game_path(@game), method: "patch" %>
+</div>
+</div>
+
+<div class="container">
+<div class="discard" style="border: solid ; margin: 20px">
+<h3>La défausse</h3>
+<% @game.discard_pile_cards.each do |card| %>
+<li> <%= card %> </li>
+<%end%>
+</div>
+</div>
+
+
+<div class="container" style="display: flex">
+<div class="player_cards" style="border: solid ; margin: 20px">
+<h3>Main du joueur</h3>
+<p>joueur en cours: <%= current_player.name %></p>
+<% current_player.cards.each do |card| %>
+<%# <li> <%= link_to "#{card}", game_played_cards_path(@game, {card_code: "#{card}"}), method: “post” %></li> %>
+<%end%>
+</div>
+<div class="player_cards" style="border: solid ; margin: 20px">
+<h3>Main du joueur</h3>
+<p>joueur suivant: <%= @game.players.last.name %></p>
+<% @game.players.last.cards.each do |card| %>
+<li> <%= card %> </li>
+<%end%>
+</div>
+</div>
 
 <p> <%= link_to 'Play card', game_played_cards_path(@game, {card_code: "mix"}), method: "post" %> <p>
