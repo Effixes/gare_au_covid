@@ -16,4 +16,6 @@ class Game < ApplicationRecord
   def start
     StartGame.new(self).call
   end
+
+
 end
