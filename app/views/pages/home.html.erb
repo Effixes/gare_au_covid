@@ -1,9 +1,33 @@
+<div class="main-wrapper home-wrapper text-center">
+  <div class="btn-classic-dark">Accéder aux règles</div>
 
-<%= simple_form_for(@game) do |f| %>
-  <%= f.simple_fields_for :players do |player_form| %>
-    <%= player_form.input :name %>
-    <%= player_form.input :avatar, collection: Player::AVATARS, as: :radio_buttons %>
-  <% end %>
-  <%= f.input :players_count %>
-  <%= f.submit %>
-<% end %>
+  <%= image_tag "gare-au-covid.png", class:'home-logo' %>
+
+
+    <%= simple_form_for(@game) do |f| %>
+      <div class="config">
+        <div class="left">
+          <%= f.simple_fields_for :players do |player_form| %>
+            <%= image_tag "batman.png", class:'avatar-large' %>
+            <%= player_form.input :avatar, collection: Player::AVATARS, as: :radio_buttons %>
+            <%= player_form.input :name, label: "CHOISIS TON PSEUDO", placeholder: "LONDUZBOUB" %>
+          <% end %>
+        </div>
+        <div class="right">
+          <div class="rules">
+            <div class="title">
+            Lancer une partie
+            </div>
+          Choisis toi un pseudo, un avatar puis choisis le nombre de joueurs avec lesquels tu veux jouer et crées la partie
+          </div>
+          <div class="counter">
+            <span class="minus" id="minus"><i class="fas fa-minus"></i></span>
+              <%= f.input :players_count,  label: "NOMBRE DE JOUEURS", placeholder: "1"%>
+            <span class="plus" id="plus"><i class="fas fa-plus"></i></span>
+          </div>
+        
+        </div>
+      </div>
+      <%= f.submit class: 'btn-create' %>
+    <% end %>
+</div>

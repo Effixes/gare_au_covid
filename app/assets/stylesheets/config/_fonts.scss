@@ -1,9 +1,13 @@
 // Import Google fonts
-@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap');
 
 // Define fonts for body and headers
 $body-font: "Quicksand";
 $headers-font: "Quicksand";
+
+*{
+    color:white;
+}
 
 // To use a font file (.woff) uncomment following lines
 // @font-face {

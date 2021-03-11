@@ -1,0 +1,46 @@
+.simple_form label {
+    color:white;
+}
+
+.form-group {
+    margin:0 !important;
+}
+
+input {
+    background: rgba(235, 235, 235, 0.6) !important;
+    border-radius: 50px !important;
+    border:none !important;
+    color:$green !important;
+    font-weight: bold;
+    text-align:center;
+}
+
+.form-control::placeholder {
+    color:$green;
+    font-weight: bold;
+}
+
+.counter {
+    display:flex;
+    align-items:end;
+    justify-content:center;
+}
+
+#game_players_count {
+    width:80px;
+    margin:0 auto;
+}
+#game_players_attributes_0_name {
+    width:220px;
+    margin:0 auto;
+}
+.minus, .plus {
+    width:40px;
+    height:40px;
+    background-color:white;
+    color:$green;
+    border-radius:50%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
