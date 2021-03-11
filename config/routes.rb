@@ -9,8 +9,8 @@ Rails.application.routes.draw do
     member do
       # /games/:id/start
       patch :start
-      patch :change_player
       patch :draw
+      patch :end_of_turn
     end
 
     resources :played_cards, only: [:create]

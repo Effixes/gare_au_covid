@@ -3,14 +3,15 @@ class GamesController < ApplicationController
 
   def show
     @curent_status = 
-    if @game.status == 'waiting' && player_has_not_joined_game?
+      if @game.status == 'waiting' && player_has_not_joined_game?
+        @player = Player.new
         'player_invited'
       elsif @game.status == 'waiting'
         'waiting'
       else
         'on_going'
       end
-      
+
       render @curent_status
     end
     
@@ -22,6 +23,8 @@ class GamesController < ApplicationController
       set_current_player(@game.players.first)
       redirect_to game_path(@game)
     end
+
+    
     
     private
 
