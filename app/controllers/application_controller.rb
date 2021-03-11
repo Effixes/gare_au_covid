@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def set_current_player(player)
     @current_player = player
-    
+
     session[:player_id] = player.id
   end
 
