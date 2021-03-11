@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       # /games/:id/start
       patch :start
       patch :draw
-      patch :end_of_turn
+      patch :end_turn
     end
 
     resources :played_cards, only: [:create]
