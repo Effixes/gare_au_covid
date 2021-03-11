@@ -2,7 +2,6 @@ class GamesController < ApplicationController
   before_action :set_game, only: [:show, :draw, :start]
 
   def show
-
     @curent_status = 
       if @game.status == 'waiting' && player_has_not_joined_game?
         @player = Player.new
