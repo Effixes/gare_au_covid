@@ -1,9 +1,11 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: :show
+  before_action :set_game, only: [:show, :draw]
 
   def show
-    @curent_status =
-    if @game.status == 'waiting' && player_has_not_joined_game?
+
+    @curent_status = 
+      if @game.status == 'waiting' && player_has_not_joined_game?
+        @player = Player.new
         'player_invited'
       elsif @game.status == 'waiting'
         'waiting'
@@ -23,12 +25,13 @@ class GamesController < ApplicationController
       redirect_to game_path(@game)
     end
 
-
-
-
-
     def play_card(card_code)
       PlayCard.new(@game, card_code).call
+    end
+  
+    def draw
+      drawed_card_code = DrawCard.new(@game).call
+      redirect_to game_path(@game, drawed_card_code: drawed_card_code)
     end
 
     private

@@ -1,1 +1,7 @@
 <h1>je suis un invité :D</h1>
+
+<%= simple_form_for([@game, @player]) do |f| %>
+ <%= f.input :name %>
+ <%= f.input :avatar, collection: Player::AVATARS, as: :radio_buttons %>
+ <%= f.submit %>
+<% end %>
