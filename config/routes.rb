@@ -22,5 +22,6 @@ Rails.application.routes.draw do
   end
 
   get "components", to: 'pages#components'
+  get "rules", to: 'pages#rules'
 
 end

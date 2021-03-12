@@ -18,3 +18,52 @@
     border-radius:50px;
     border: 2px solid rgba(255,255,255,0.4);
 }
+
+.waiting-wrapper {
+    padding:30px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.rules {
+    background: rgba(235, 235, 235, 0.24);
+    border-radius: 40px;
+    padding:10px 30px 20px 30px;
+    color: rgba(255, 255, 255, 0.6);
+    width:70%;
+    margin:0 auto;
+    margin-bottom:30px;
+
+    .title {
+        font-size: 18px;
+        letter-spacing: 0.25px;
+        color: rgba(255,255,255,0.5);
+        border-bottom:1px solid rgba(255,255,255,0.2);
+        margin-bottom:12px;
+    }
+}
+
+.rules-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.rules-container img {
+    width: 300px;
+    height: auto;
+}
+
+.players-container {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:60%;
+    margin:0 auto;
+}
+
+.center-element{
+  align-items: center !important;
+}

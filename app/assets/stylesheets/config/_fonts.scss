@@ -5,8 +5,19 @@
 $body-font: "Quicksand";
 $headers-font: "Quicksand";
 
-*{
-    color:white;
+.font-light-rules{
+   color: rgba(255, 255, 255, 0.719);
+   font-size: 18px;
+   font-weight: medium;
+}
+
+.medium{
+    color: rgb(255, 255, 255) !important;
+    font-weight: bold !important;
+ }
+
+.font-bold-rules {
+    font-size: 24px;
 }
 
 // To use a font file (.woff) uncomment following lines
