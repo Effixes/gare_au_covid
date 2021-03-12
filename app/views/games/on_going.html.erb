@@ -1,95 +1,69 @@
-<h1>C'est le feu ce jeu!</h1>
+<div class="main-wrapper text-center">
+  <!-- Affichage des differents player -->
+  <div class="container-player-avatar">
+    <% @game.players.each do |player| %>
+      <% unless player == current_player%>
+      <div class="player-avatar">
+         <h3> <%= player.name %> </h3>
+      </div>
+      <%end%>
+    <%end%>
+  </div>
 
+  <!--  Affichage de la defausse et de la pioche -->
+  <div class="container-pioche-defausse">
+    <div class="pioche-defausse">
+      <h3>Defausse</h3>
+    </div>
+    <div class="pioche-defausse">
+      <h3>Pioche</h3>
+    </div>
 
+  </div>
 
-<div class="container">
-<div class="players_vs" style="border: solid ; margin: 20px">
-<h3>Joueur session en cours</h3>
-<% session_player = current_player %>
-<li> <%= session_player.name %> </li>
-</div>
-</div>
-
-<div class="container">
-<div class="players_vs" style="border: solid ; margin: 20px">
-<h3>Game current player</h3>
-<% game_current_player = @game.current_player %>
-<li> <%= game_current_player.name %> </li>
-</div>
-</div>
-
-<div class="container">
-<div class="players_vs" style="border: solid ; margin: 20px">
-<h3>Game next player</h3>
-<% game_next_player = @game.next_player %>
-<li> <%= game_next_player.name %> </li>
-</div>
-</div>
-
-
-<div class="container">
-<div class="players_vs" style="border: solid ; margin: 20px">
-<h3>Les autres joueurs</h3>
-<% @game.players.each do |player| %>
-<% unless player == current_player%>
-<li> <%= player.name %> </li>
-<%end%>
-<%end%>
-</div>
-</div>
-
-<div class="container" >
-<div class="params" style="border: solid ; margin: 20px">
-<h3>Infos params:</h3>
-<%= params  %>
-</div>
-</div>
-
-
-<div class="container">
-<div class="draw" style="border: solid ; margin: 20px">
-<h3>Piocher</h3>
-<%= current_player.draw_card_count %>
-<% @game.draw_pile_cards.each do |card| %>
-  <li> <%= card %> </li>
-<%end%>
-<%=  link_to 'pioche', draw_game_path(@game), method: "patch" %>
-</div>
-</div>
-
-<div class="container">
-<div class="discard" style="border: solid ; margin: 20px">
-<h3>La défausse</h3>
-<% @game.discard_pile_cards.each do |card| %>
-<li> <%= card %> </li>
-<%end%>
-</div>
-</div>
-
-
-<div class="container" style="display: flex">
-<div class="player_cards" style="border: solid ; margin: 20px">
-<h3>Main du joueur</h3>
-<p>joueur en cours: <%= current_player.name %></p>
-<ul>
-  <% current_player.cards.each do |card| %>
-    <% if playable?(card) && (current_player == @game.current_player) %>
-      <li> <%= link_to "#{card}", game_played_cards_path(@game, {card_code: "#{card}"}), method: "post" %></li>
-    <% else %>
-      <%= card %>
+<!--   <div class="container-debug">
+    <p> current player id: <%= current_player.id %> </p>
+    <p>  game current player: <%= @game.current_player.id %> </p>
+  </div> -->
+  <!-- Gestion pioche et fin de tour -->
+  <div class="container-button">
+    <% if (current_player.id == @game.current_player.id) %>
+      <% if @game.current_player.draw_card_count > 0 %>
+       <%=  link_to draw_game_path(@game), method: "patch" do %>
+        <div class="btn-classic-dark btn-resize">
+          <p> pioche </p>
+        </div>
+       <% end %>
+      <% else %>
+        <%= link_to end_turn_game_path(@game), method: "patch" do %>
+          <div class="btn-classic-dark btn-resize">
+            <p> fin tour </p>
+          </div>
+        <% end  %>
+      <% end %>
     <% end %>
-  <%end%>
-</ul>
-</div>
-<div class="player_cards" style="border: solid ; margin: 20px">
-<h3>Main du joueur</h3>
-<p>joueur suivant: <%= @game.players.last.name %></p>
-<% @game.players.last.cards.each do |card| %>
-<li> <%= card %> </li>
-<%end%>
-</div>
+
+  </div>
+
+  <div class="container-card-current-player">
+      <% current_player.cards.each do |card| %>
+        <!-- Card jouable -->
+        <% if (playable?(card) && (current_player.id == @game.current_player.id)) %>
+          <%= link_to game_played_cards_path(@game, {card_code: "#{card}"}), method: "post" do %>
+            <div class="card-current-player">
+              <p><%= "#{card}"  %> </p>
+            </div>
+          <% end %>
+        <% else %>
+          <!-- Card non jouable -->
+          <div class="card-current-player">
+              <p><%= "not playable #{card}"  %> </p>
+          </div>
+        <% end %>
+      <%end%>
+  </div>
+
 </div>
 
 
-<p><%= link_to "End of turn", end_turn_game_path(@game), method: "patch" %> </p>
-<p> <%= link_to 'Play card', game_played_cards_path(@game, {card_code: "mix"}), method: "post" %> <p>
+
