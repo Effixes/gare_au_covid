@@ -1,7 +1,20 @@
-<h1>je suis un invité :D</h1>
+<div class="main-wrapper home-wrapper text-center">
+  <div class="btn-classic-dark">Accéder aux règles</div>
 
-<%= simple_form_for([@game, @player]) do |f| %>
- <%= f.input :name %>
- <%= f.input :avatar, collection: Player::AVATARS, as: :radio_buttons %>
- <%= f.submit %>
-<% end %>
+  <%= image_tag "gare-au-covid.png", class:'home-logo' %>
+
+
+    <div class="invited-form">
+      <%#= Player::AVATARS  %>
+      <%= simple_form_for([@game, @player]) do |f| %>
+        <%= f.collection_radio_buttons(:avatar,  Player::AVATARS.map {|avatar| [avatar,avatar]}, :first, :last) do |b, avatar|
+          b.label(class: 'js-invited-avatar') { b.radio_button(class: 'd-none') + image_tag(b.value, {class: 'invited-avatar'})}
+        end %>
+        <%= f.label :name, label: 'Ton pseudo', input_html: {class: 'mb-5'}  %>
+        <%= f.input :name, label: false,:autofocus => true, input_html:{class: 'invited-pseudo w-50 mx-auto'}%>
+        <%= f.submit 'REJOINDRE LA PARTIE', class: 'btn-create mt-3'%>
+      <% end %>
+    </div>
+</div>
+
+

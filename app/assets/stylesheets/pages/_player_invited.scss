@@ -1,0 +1,27 @@
+.invited-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.invited-avatar {
+  display: inline;
+  margin-right: 10px;
+  width: 55px;
+  height: auto;
+  border-radius: 50%;
+}
+
+input[type="radio"]:checked + label{
+  width:100px;
+}
+
+.invited-avatar.active {
+  border:3px solid $red-light;
+
+}
+
+.invited-pseudo {
+  padding-top: 25px;
+ }
