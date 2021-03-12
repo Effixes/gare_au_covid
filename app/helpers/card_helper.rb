@@ -28,7 +28,8 @@ module CardHelper
       # Init compteur
       count_pair = current_player.cards.count { |card| card == card_code }
       count_pair >= 2
+    else
+      true
     end
-    # true
   end
 end
