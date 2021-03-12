@@ -3,6 +3,9 @@ module CardHelper
     # Recupere le jeu en cours
 
     case card_code
+    # Kit
+    when "kit"
+      false
     # cluster
     when "cluster"
       # Tout le temps jouable
@@ -26,7 +29,6 @@ module CardHelper
       count_pair = current_player.cards.count { |card| card == card_code }
       count_pair >= 2
     end
-
-    true
+    # true
   end
 end

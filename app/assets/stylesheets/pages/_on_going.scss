@@ -1,0 +1,94 @@
+// Style pour le render on_going
+
+
+
+// Container global les avatar des joueurs
+.container-player-avatar{
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  height: 200px;
+}
+
+// Class avatar joueur
+.player-avatar {
+  width: 180px;
+  height: 120px;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+
+// Container defausse et pioche
+.container-pioche-defausse{
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  height: 200px;
+}
+
+// Class pioche et defausse
+.pioche-defausse {
+  width: 160px;
+  height: 220px;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+// Container cards current player
+.container-card-current-player{
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  height: 200px;
+}
+
+// Class card current player
+.card-current-player{
+  width: 120px;
+  height: 200px;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+
+.container-button{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  height: 80px;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  position: absolute;
+  right: 180px;
+  bottom: 300px;
+}
+
+.btn-resize{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width:160px;
+  height: 40px;
+  bottom-padding: 30px;
+}
+
+.container-debug{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  position: absolute;
+  right: 180px;
+  bottom: 500px;
+}
