@@ -16,7 +16,8 @@ class EndTurn
         kit_card.apply
       end
     end
-
+    @player.draw_card_count = 1
+    @player.save
     @game.current_player = @game.next_player
     @game.save!
 

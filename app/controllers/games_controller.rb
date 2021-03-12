@@ -40,6 +40,7 @@ class GamesController < ApplicationController
 
   def end_turn
     EndTurn.new(@game).call
+    EndGame.new(@game).call
     redirect_to game_path(@game)
   end
 
