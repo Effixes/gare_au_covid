@@ -46,6 +46,12 @@
   height: 200px;
 }
 
+// Container cards current player
+.container-card-current-player a:hover{
+  text-decoration: none;
+}
+
+
 // Class card current player
 .card-current-player{
   width: 120px;
