@@ -1,7 +1,41 @@
-<h1>C'est quand qu'on commence?</h1>
+<div class="main-wrapper waiting-wrapper text-center">
+  <div class="players-container">
 
-<% if current_player == @game.host  %>
-  <%= link_to "Démarrer la partie", start_game_path(@game), method: "patch" %>
-<% else %>
-  <p>En attente de la création de la partie</p>
-<% end %>
+    <% if @game.players_count > @game.players.length %>
+      <% num = @game.players_count - 1 %>
+      <%  num.times do %>
+        <div class="player">
+          <%= image_tag "unknown.png", class:'avatar-medium' %>
+        </div>
+      <%end%>
+    <%else%>
+      <% @game.players.each do |player| %>
+        <% unless player == current_player%>
+          <div class="player">
+            <%= player.avatar %>
+            <h3>
+              <%= player.name %> 
+            </h3>
+          </div>
+        <%end%>
+      <%end%>
+    <%end%>
+  </div>
+
+  <div>
+    <%= render 'shared/rules' %>
+  </div>
+  
+  <div class="container">
+    <% if current_player == @game.host%>
+      <% if @game.players_count == @game.players.length %>
+        <%= link_to "Démarrer la partie", start_game_path(@game), method: "patch", class:"btn-create" %>
+      <% else %>
+        <div class="btn-create-inactive">Démarrer la partie</div>
+      <% end %>
+    <% else %>
+      <p>En attente de la création de la partie</p>
+    <% end %>
+  </div>
+  
+</div>

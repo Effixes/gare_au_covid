@@ -7,4 +7,8 @@ class PagesController < ApplicationController
 
   def components
   end
+
+  def rules
+  end
+  
 end
