@@ -38,6 +38,16 @@
   margin-left: 10px;
 }
 
+// Class card current player
+.card-pioche{
+  width: 120px;
+  height: 160px;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  margin-left: 20px;
+}
+
 // Container cards current player
 .container-card-current-player{
   margin-top: 40px;
@@ -60,6 +70,7 @@
   border: 1px solid white;
   border-radius: 5px;
   margin-left: 5px;
+  rotate: 5deg;
 }
 
 .container-button{
@@ -67,7 +78,7 @@
   justify-content: center;
   align-items: center;
   width: 180px;
-  height: 80px;
+  padding:10px;
   color: white;
   border: 1px solid white;
   border-radius: 5px;
@@ -97,4 +108,8 @@
   position: absolute;
   right: 180px;
   bottom: 500px;
+}
+
+.current-player-style {
+  border: 1px solid yellow;
 }

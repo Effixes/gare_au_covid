@@ -20,6 +20,5 @@ class EndTurn
     @player.save
     @game.current_player = @game.next_player
     @game.save!
-
   end
 end

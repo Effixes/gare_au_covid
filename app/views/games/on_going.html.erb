@@ -3,9 +3,17 @@
   <div class="container-player-avatar">
     <% @game.players.each do |player| %>
       <% unless player == current_player%>
-      <div class="player-avatar">
-         <h3> <%= player.name %> </h3>
-      </div>
+      <!-- Mise en surbrillance du joueur en cours -->
+      <% if player.id == @game.current_player.id  %>
+        <div class="player-avatar current-player-style">
+          <h3> <%= player.name %> </h3>
+        </div>
+      <% else %>
+        <div class="player-avatar">
+          <h3> <%= player.name %> </h3>
+        </div>
+      <% end %>
+
       <%end%>
     <%end%>
   </div>
@@ -14,6 +22,9 @@
   <div class="container-pioche-defausse">
     <div class="pioche-defausse">
       <h3>Defausse</h3>
+      <div class="card-pioche">
+        <p><%= @game.discard_pile_cards.last %></p>
+      </div>
     </div>
     <div class="pioche-defausse">
       <h3>Pioche</h3>
@@ -21,34 +32,44 @@
 
   </div>
 
-<!--   <div class="container-debug">
-    <p> current player id: <%= current_player.id %> </p>
-    <p>  game current player: <%= @game.current_player.id %> </p>
-  </div> -->
+
+
   <!-- Gestion pioche et fin de tour -->
-  <div class="container-button">
     <% if (current_player.id == @game.current_player.id) %>
-      <% if @game.current_player.draw_card_count > 0 %>
-       <%=  link_to draw_game_path(@game), method: "patch" do %>
-        <div class="btn-classic-dark btn-resize">
-          <p> pioche </p>
-        </div>
-       <% end %>
-      <% else %>
-        <%= link_to end_turn_game_path(@game), method: "patch" do %>
+      <div class="container-button">
+        <% if @game.current_player.draw_card_count > 0 %>
+         <%=  link_to draw_game_path(@game), method: "patch" do %>
           <div class="btn-classic-dark btn-resize">
-            <p> fin tour </p>
+            <% if params[:drawed_card_code] %>
+              <p>Vous avez pioché <%= params[:drawed_card_code] %> </p>
+            <% end %>
+            <p> pioche </p>
           </div>
-        <% end  %>
-      <% end %>
+         <% end %>
+        <% else %>
+          <!-- Affiche la carte pioché pour le joueur drawed_card_code -->
+          <div>
+            <% if params[:drawed_card_code] %>
+              <p>Vous avez pioché <%= params[:drawed_card_code] %> </p>
+            <% end %>
+            <%= link_to end_turn_game_path(@game), method: "patch" do %>
+              <div class="btn-classic-dark btn-resize">
+                <p> fin tour </p>
+              </div>
+            <% end  %>
+          </div>
+        <% end %>
+      </div>
     <% end %>
 
-  </div>
+
 
   <div class="container-card-current-player">
+      <% rotate = "-20deg" %>
       <% current_player.cards.each do |card| %>
         <!-- Card jouable -->
         <% if (playable?(card) && (current_player.id == @game.current_player.id)) %>
+          <!-- Rend les cartes jouable clickable pour lancer le play card du joueur en cours -->
           <%= link_to game_played_cards_path(@game, {card_code: "#{card}"}), method: "post" do %>
             <div class="card-current-player">
               <p><%= "#{card}"  %> </p>
