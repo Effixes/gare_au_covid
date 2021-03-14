@@ -96,14 +96,27 @@
 
 .card {
   position:absolute;
-  background-color:tomato;
-  width:150px;
+  width:143px;
   height:200px;
-  border:1px solid red;
   transition:.5s;
   top:0px;
-  transform:rotate(-23deg);
+  transform:rotate(-23deg);   
+  
+  &__playable {
+  border:3px solid red;
+  }
+
+  &__inactive {
+  background-image: rgba(0, 0, 0, 0.712);
+  }
+
 }
+
+.card-discard {
+  width:143px;
+  height:200px;  
+}
+
 
 $rotate : -5;
 @for $i from 1 through 10 {
