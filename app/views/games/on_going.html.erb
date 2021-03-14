@@ -51,6 +51,9 @@
                 <p>deuxieme carte: <%= @game.draw_pile_cards.second %>  </p>
                 <p>troisieme carte: <%= @game.draw_pile_cards.third %> </p>
               <% end %>
+              <% if params[:played_card_code].include? "pair" %>
+                <p>Vous avez volé la carte: <%= @game.current_player.cards.last %> </p>
+              <% end %>
             <% end %>
 
         <% if @game.current_player.draw_card_count > 0 %>
