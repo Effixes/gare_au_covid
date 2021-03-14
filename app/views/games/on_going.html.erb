@@ -25,7 +25,7 @@
     <div class="pioche-defausse">
       <h3>Defausse</h3>
       <div class="card-pioche">
-      <%= image_tag "cards/#{@game.discard_pile_cards.last}.png", class: "card-discard" %>
+      <%= image_tag "cards/#{@game.discard_pile_cards.last}.png", class: "card-discard" if @game.discard_pile_cards.last %>
       </div>
     </div>
     
