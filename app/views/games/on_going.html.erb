@@ -39,32 +39,38 @@
   <!-- Gestion pioche et fin de tour -->
     <% if (current_player.id == @game.current_player.id) %>
       <div class="container-button">
-        <% if @game.current_player.draw_card_count > 0 %>
-         <%=  link_to draw_game_path(@game), method: "patch" do %>
-          <div class="btn-classic-dark btn-resize">
+        <div>
+            <!-- Affichage carte piochée -->
             <% if params[:drawed_card_code] %>
               <p>Vous avez pioché <%= params[:drawed_card_code] %> </p>
             <% end %>
-            <p> pioche </p>
-          </div>
-         <% end %>
+            <!-- affichage 3 premiere carte de la pioche -->
+            <% if params[:played_card_code] %>
+              <% if params[:played_card_code] == "testing" %>
+                <p>premiere carte: <%= @game.draw_pile_cards.first %> </p>
+                <p>deuxieme carte: <%= @game.draw_pile_cards.second %>  </p>
+                <p>troisieme carte: <%= @game.draw_pile_cards.third %> </p>
+              <% end %>
+            <% end %>
+
+        <% if @game.current_player.draw_card_count > 0 %>
+           <%=  link_to draw_game_path(@game), method: "patch" do %>
+            <div class="btn-classic-dark btn-resize">
+              <p> pioche </p>
+            </div>
+           <% end %>
+
         <% else %>
           <!-- Affiche la carte pioché pour le joueur drawed_card_code -->
-          <div>
-            <% if params[:drawed_card_code] %>
-              <p>Vous avez pioché <%= params[:drawed_card_code] %> </p>
-            <% end %>
             <%= link_to end_turn_game_path(@game), method: "patch" do %>
               <div class="btn-classic-dark btn-resize">
                 <p> fin tour </p>
               </div>
             <% end  %>
-          </div>
         <% end %>
+        </div>
       </div>
     <% end %>
-
-
 
   <div class="container-player-interface">
     <div class="cards">
