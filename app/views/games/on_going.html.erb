@@ -49,6 +49,9 @@
                 <p>deuxieme carte: <%= @game.draw_pile_cards.second %>  </p>
                 <p>troisieme carte: <%= @game.draw_pile_cards.third %> </p>
               <% end %>
+              <% if params[:played_card_code].include? "pair" %>
+                <p>Vous avez volé la carte: <%= @game.current_player.cards.last %> </p>
+              <% end %>
             <% end %>
 
         <% if @game.current_player.draw_card_count > 0 %>
@@ -75,9 +78,10 @@
   <div class="container-card-current-player">
       <% current_player.cards.each do |card| %>
         <!-- Card jouable -->
-        <% if (playable?(card) && (current_player.id == @game.current_player.id)) %>
+        <% if (playable?(card) && (current_player.id == @game.current_player.id))  %>
           <!-- Rend les cartes jouable clickable pour lancer le play card du joueur en cours -->
           <%= link_to game_played_cards_path(@game, {card_code: "#{card}"}), method: "post" do %>
+
             <div class="card-current-player">
               <p><%= "#{card}"  %> </p>
             </div>
