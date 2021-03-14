@@ -5,12 +5,14 @@
       <% unless player == current_player%>
       <!-- Mise en surbrillance du joueur en cours -->
       <% if player.id == @game.current_player.id  %>
-        <div class="player-avatar current-player-style">
-          <h3> <%= player.name %> </h3>
+        <div class="player-avatar">
+        <h3> <%= player.name %> </h3>
+        <%= image_tag "#{player.avatar}", class:'avatar-medium current-player-style' %>
         </div>
       <% else %>
         <div class="player-avatar">
           <h3> <%= player.name %> </h3>
+          <%= image_tag "#{player.avatar}", class:'avatar-medium' %>
         </div>
       <% end %>
 
@@ -73,29 +75,24 @@
       </div>
     <% end %>
 
-
-
-  <div class="container-card-current-player">
+  <div class="container-player-interface">
+    <div class="cards">
       <% current_player.cards.each do |card| %>
-        <!-- Card jouable -->
-        <% if (playable?(card) && (current_player.id == @game.current_player.id))  %>
-          <!-- Rend les cartes jouable clickable pour lancer le play card du joueur en cours -->
-          <%= link_to game_played_cards_path(@game, {card_code: "#{card}"}), method: "post" do %>
-
-            <div class="card-current-player">
-              <p><%= "#{card}"  %> </p>
-            </div>
-          <% end %>
-        <% else %>
-          <!-- Card non jouable -->
-          <div class="card-current-player">
-              <p><%= "#{card}"  %> </p>
+      <!-- Card jouable -->
+        <% if (playable?(card) && (current_player.id == @game.current_player.id)) %>
+          <div class="card">
+            <%= link_to game_played_cards_path(@game, {card_code: "#{card}"}), method: "post" do %>
+              <div> <%= "#{card}"  %> </div>
+            <% end %>
           </div>
-        <% end %>
+        <% else %>
+        <!-- Card non jouable -->
+          <div class="card">
+            <p><%= "#{card}"  %> </p>
+          </div>
+        <%end%>
       <%end%>
+    </div>
   </div>
 
 </div>
-
-
-
