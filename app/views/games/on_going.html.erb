@@ -5,12 +5,14 @@
       <% unless player == current_player%>
       <!-- Mise en surbrillance du joueur en cours -->
       <% if player.id == @game.current_player.id  %>
-        <div class="player-avatar current-player-style">
-          <h3> <%= player.name %> </h3>
+        <div class="player-avatar">
+        <h3> <%= player.name %> </h3>
+        <%= image_tag "#{player.avatar}", class:'avatar-medium current-player-style' %>
         </div>
       <% else %>
         <div class="player-avatar">
           <h3> <%= player.name %> </h3>
+          <%= image_tag "#{player.avatar}", class:'avatar-medium' %>
         </div>
       <% end %>
 
@@ -23,11 +25,13 @@
     <div class="pioche-defausse">
       <h3>Defausse</h3>
       <div class="card-pioche">
-        <p><%= @game.discard_pile_cards.last %></p>
+      <%= image_tag "cards/#{@game.discard_pile_cards.last}.png", class: "card-discard" if @game.discard_pile_cards.last %>
       </div>
     </div>
+    
     <div class="pioche-defausse">
-      <h3>Pioche</h3>
+    <h3>Pioche</h3>
+       <%= image_tag "cards/back.png", class: "card-discard" %>
     </div>
 
   </div>
@@ -37,54 +41,55 @@
   <!-- Gestion pioche et fin de tour -->
     <% if (current_player.id == @game.current_player.id) %>
       <div class="container-button">
-        <% if @game.current_player.draw_card_count > 0 %>
-         <%=  link_to draw_game_path(@game), method: "patch" do %>
-          <div class="btn-classic-dark btn-resize">
+        <div>
+            <!-- Affichage carte piochée -->
             <% if params[:drawed_card_code] %>
               <p>Vous avez pioché <%= params[:drawed_card_code] %> </p>
             <% end %>
-            <p> pioche </p>
-          </div>
-         <% end %>
+            <!-- affichage 3 premiere carte de la pioche -->
+            <% if params[:played_card_code] %>
+              <% if params[:played_card_code] == "testing" %>
+                <p>premiere carte: <%= @game.draw_pile_cards.first %> </p>
+                <p>deuxieme carte: <%= @game.draw_pile_cards.second %>  </p>
+                <p>troisieme carte: <%= @game.draw_pile_cards.third %> </p>
+              <% end %>
+              <% if params[:played_card_code].include? "pair" %>
+                <p>Vous avez volé la carte: <%= @game.current_player.cards.last %> </p>
+              <% end %>
+            <% end %>
+
+        <% if @game.current_player.draw_card_count > 0 %>
+           <%=  link_to draw_game_path(@game), method: "patch" do %>
+            <div class="btn-classic-dark btn-resize">
+              <p> pioche </p>
+            </div>
+           <% end %>
+
         <% else %>
           <!-- Affiche la carte pioché pour le joueur drawed_card_code -->
-          <div>
-            <% if params[:drawed_card_code] %>
-              <p>Vous avez pioché <%= params[:drawed_card_code] %> </p>
-            <% end %>
             <%= link_to end_turn_game_path(@game), method: "patch" do %>
               <div class="btn-classic-dark btn-resize">
                 <p> fin tour </p>
               </div>
             <% end  %>
-          </div>
         <% end %>
+        </div>
       </div>
     <% end %>
 
-
-
-  <div class="container-card-current-player">
-      <% rotate = "-20deg" %>
+  <div class="container-player-interface">
+    <div class="cards">
       <% current_player.cards.each do |card| %>
-        <!-- Card jouable -->
+      <!-- Card jouable -->
         <% if (playable?(card) && (current_player.id == @game.current_player.id)) %>
-          <!-- Rend les cartes jouable clickable pour lancer le play card du joueur en cours -->
-          <%= link_to game_played_cards_path(@game, {card_code: "#{card}"}), method: "post" do %>
-            <div class="card-current-player">
-              <p><%= "#{card}"  %> </p>
-            </div>
-          <% end %>
+          <%= link_to (image_tag "cards/#{card}.png"), game_played_cards_path(@game, {card_code: "#{card}"}), method: "post", class: "card__playable card" %>
         <% else %>
-          <!-- Card non jouable -->
-          <div class="card-current-player">
-              <p><%= "#{card}"  %> </p>
-          </div>
-        <% end %>
+        <!-- Card non jouable -->
+         <%= image_tag "cards/#{card}.png", class: "card__inactif card" %>
+        <%end%>
       <%end%>
+    </div>
   </div>
 
 </div>
-
-
 

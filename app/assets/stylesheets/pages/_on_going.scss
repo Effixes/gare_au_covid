@@ -15,8 +15,6 @@
   width: 180px;
   height: 120px;
   color: white;
-  border: 1px solid white;
-  border-radius: 5px;
 }
 
 
@@ -30,23 +28,31 @@
 
 // Class pioche et defausse
 .pioche-defausse {
-  width: 160px;
-  height: 220px;
+  width: 200px;
+  height: 250px;
   color: white;
   border: 1px solid white;
   border-radius: 5px;
   margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 // Class card current player
 .card-pioche{
-  width: 120px;
-  height: 160px;
+  background-color:tomato;
+  width:150px;
+  height:200px;
+  border:1px solid red;
   color: white;
-  border: 1px solid white;
-  border-radius: 5px;
-  margin-left: 20px;
 }
+
+
+
+
+
 
 // Container cards current player
 .container-card-current-player{
@@ -70,8 +76,68 @@
   border: 1px solid white;
   border-radius: 5px;
   margin-left: 5px;
-  rotate: 5deg;
 }
+
+
+
+
+// Visuel carte de la main en éventail
+
+.container-cards {
+  width:800px;
+  margin:260px auto;
+}
+
+.cards {
+  position:relative;
+  margin:0 auto;
+  transform:rotate(-8deg);
+}
+
+.card {
+  position:absolute;
+  width:143px;
+  height:200px;
+  transition:.5s;
+  top:0px;
+  transform:rotate(-23deg);   
+  
+  &__playable {
+  border:3px solid red;
+  }
+
+  &__inactive {
+  background-image: rgba(0, 0, 0, 0.712);
+  }
+
+}
+
+.card-discard {
+  width:143px;
+  height:200px;  
+}
+
+
+$rotate : -5;
+@for $i from 1 through 10 {
+  .card:nth-child(1n + #{$i}) {
+    transform: translate(#{$i*7}em, #{$i/1}em) rotate(#{$rotate + $i*3}deg);    
+  }
+}
+
+.card:hover {
+  top:-10px;
+  transition:.5s;
+}
+
+
+
+
+
+
+
+// pioche
+
 
 .container-button{
   display:flex;
