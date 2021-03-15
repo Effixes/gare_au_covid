@@ -10,6 +10,7 @@
         <div class="left" id="imgs-container">
           <%= f.simple_fields_for :players do |player_form| %>
 
+
             <%= player_form.collection_radio_buttons(:avatar,  Player::AVATARS.map {|avatar| [avatar,avatar]}, :first, :last) do |b, avatar|
           b.label(class: 'js-invited-avatar') { b.radio_button(class: 'd-none') + image_tag(b.value, {class: 'invited-avatar home-avatar'})}
         end %>
@@ -20,6 +21,7 @@
 
 
             <%= player_form.input :name, label: "CHOISIS TON PSEUDO", placeholder: "LONDUZBOUB" %>
+
           <% end %>
         </div>
         <div class="right">
@@ -31,7 +33,7 @@
           </div>
           <div class="counter">
             <span class="minus" id="minus"><i class="fas fa-minus"></i></span>
-              <%= f.input :players_count,  label: "NOMBRE DE JOUEURS", placeholder: "1"%>
+              <%= f.input :players_count,  label: "NOMBRE DE JOUEURS", placeholder: "1" %>
             <span class="plus" id="plus"><i class="fas fa-plus"></i></span>
           </div>
 

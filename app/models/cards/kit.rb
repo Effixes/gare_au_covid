@@ -6,7 +6,7 @@ class Cards::Kit < Cards::Base
 
   def current_player_effect
 
-  @current_player.cards.delete_at(@current_player.cards.index('kit'))
+    @current_player.cards.delete_at(@current_player.cards.index('kit'))
   end
 
 end

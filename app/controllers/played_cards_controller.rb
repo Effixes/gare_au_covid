@@ -5,4 +5,3 @@
       redirect_to game_path(@game, played_card_code: params[:card_code])
     end
   end
-

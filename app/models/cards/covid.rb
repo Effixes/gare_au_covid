@@ -10,6 +10,8 @@ class Cards::Covid < Cards::Base
     unless @current_player.cards.include?('kit')
       @current_player.alive = false
     end
+    # supprimer covid card de la main du player
+    @current_player.cards.delete_at(@current_player.cards.index('covid'))
   end
 
   def draw_effect

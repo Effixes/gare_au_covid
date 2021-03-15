@@ -13,9 +13,12 @@ class Cards::Pair < Cards::Base
   end
 
   def next_player_effect
-    stolen_card = @next_player.cards.sample
-    @current_player.cards << stolen_card
-    @next_player.cards.delete_at(@next_player.cards.index(stolen_card))
+    # Verify si le joueur suivant a des cartes
+    if @next_player.cards.count > 0
+      stolen_card = @next_player.cards.sample
+      @current_player.cards << stolen_card
+      @next_player.cards.delete_at(@next_player.cards.index(stolen_card))
+    end
   end
 
   def discard_effect
