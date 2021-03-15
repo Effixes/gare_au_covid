@@ -7,11 +7,21 @@
 
     <%= simple_form_for(@game) do |f| %>
       <div class="config">
-        <div class="left">
+        <div class="left" id="imgs-container">
           <%= f.simple_fields_for :players do |player_form| %>
-            <%= image_tag "batman.png", class:'avatar-large' %>
-            <%= player_form.input :avatar, collection: Player::AVATARS, as: :radio_buttons %>
+
+
+            <%= player_form.collection_radio_buttons(:avatar,  Player::AVATARS.map {|avatar| [avatar,avatar]}, :first, :last) do |b, avatar|
+          b.label(class: 'js-invited-avatar') { b.radio_button(class: 'd-none') + image_tag(b.value, {class: 'invited-avatar home-avatar'})}
+        end %>
+            <a id="switch-btn">
+              Switch
+            </a>
+            <%#= player_form.input :avatar, collection: Player::AVATARS, as: :radio_buttons %>
+
+
             <%= player_form.input :name, label: "CHOISIS TON PSEUDO", placeholder: "LONDUZBOUB" %>
+
           <% end %>
         </div>
         <div class="right">
@@ -23,7 +33,7 @@
           </div>
           <div class="counter">
             <span class="minus" id="minus"><i class="fas fa-minus"></i></span>
-              <%= f.input :players_count,  label: "NOMBRE DE JOUEURS", placeholder: "1"%>
+              <%= f.input :players_count,  label: "NOMBRE DE JOUEURS", placeholder: "1" %>
             <span class="plus" id="plus"><i class="fas fa-plus"></i></span>
           </div>
 
@@ -32,3 +42,14 @@
       <%= f.submit class: 'btn-create' %>
     <% end %>
 </div>
+
+<script>
+  const switchBtn = document.getElementById("switch-btn");
+  const imgs = document.getElementById("imgs-container").getElementsByTagName('span');
+  switchBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    imgs[2].style.zIndex = '999';
+    console.log(imgs);
+  });
+
+  </script>

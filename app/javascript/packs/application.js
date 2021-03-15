@@ -27,9 +27,13 @@ require("channels")
 import "bootstrap";
 import { updateHomeCounter } from '../pages/home';
 import {  initAvatarLabel } from '../components/avatar_labels';
+
 import { looser } from '../pop-up/looser_popup';
 import { winner } from '../pop-up/winner_popup';
 import Swal from 'sweetalert2'
+
+import { hoverCards } from '../pages/ongoing';
+
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
@@ -42,4 +46,5 @@ document.addEventListener('turbolinks:load', () => {
   winner();
   updateHomeCounter();
   initAvatarLabel();
+  hoverCards();
 });

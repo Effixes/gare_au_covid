@@ -17,9 +17,21 @@
         margin-bottom:30px;
         display:flex;
         align-items: end;
+        position:relative;
     }
 
     .left, .right {
         flex:1;
     }
 }
+
+.left span {
+    position:absolute;
+    top: 0;
+    left: 170px;
+}
+
+.home-avatar.active {
+    border:3px solid $red-light;
+  
+  }
