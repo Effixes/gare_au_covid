@@ -64,8 +64,8 @@
 
       <!-- Affichage carte piochée -->
       <% if params[:drawed_card_codes] %>
-        <!-- erb image_tag "cards/#{params[:drawed_card_codes]}.png", class:'draw-card', id:'draw-card' erb -->
-        <p>Vous avez pioché <%= params[:drawed_card_codes] %> </p>
+        <%= image_tag "cards/#{params[:drawed_card_codes][0]}.png", class:'draw-card', id:'draw-card' %>
+        <p>Vous avez pioché <%= params[:drawed_card_codes][0] %> </p>
       <% end %>
       <!-- affichage 3 premiere carte de la pioche -->
       <% if params[:played_card_code] %>
