@@ -38,8 +38,8 @@ class GamesController < ApplicationController
   end
 
   def draw
-    drawed_card_code = DrawCard.new(@game).call
-    redirect_to game_path(@game, drawed_card_code: drawed_card_code)
+    drawed_card_codes = DrawCard.new(@game).call
+    redirect_to game_path(@game, drawed_card_codes: drawed_card_codes)
   end
 
   def end_turn

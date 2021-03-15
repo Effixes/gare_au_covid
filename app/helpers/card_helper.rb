@@ -1,5 +1,7 @@
 module CardHelper
   def playable?(card_code)
+    return false if current_player.draw_card_count == 0
+
     # Recupere le jeu en cours
 
     case card_code

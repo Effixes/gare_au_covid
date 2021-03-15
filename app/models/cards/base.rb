@@ -10,14 +10,14 @@ class Cards::Base
     discard_effect
     current_player_effect
     next_player_effect
-    draw_effect 
-  
+    draw_effect
+
     @game.save
     @current_player.save
     @next_player.save
   end
 
-  private 
+  private
 
   def discard_effect
   end
