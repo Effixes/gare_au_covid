@@ -9,6 +9,7 @@ require("@rails/activestorage").start()
 require("channels")
 
 
+
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -26,7 +27,13 @@ require("channels")
 import "bootstrap";
 import { updateHomeCounter } from '../pages/home';
 import {  initAvatarLabel } from '../components/avatar_labels';
+
+import { looser } from '../pop-up/looser_popup';
+import { winner } from '../pop-up/winner_popup';
+import Swal from 'sweetalert2'
+
 import { hoverCards } from '../pages/ongoing';
+
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
@@ -34,6 +41,9 @@ import { hoverCards } from '../pages/ongoing';
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
+
+  looser();
+  winner();
   updateHomeCounter();
   initAvatarLabel();
   hoverCards();

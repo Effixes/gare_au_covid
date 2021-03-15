@@ -1,20 +1,8 @@
-<!--Affichage des infos de la pioche -->
-<!-- <div class="" style="background-color:white">
-    <h3>Pioche</h3>  -->
-    <ul>
-      <% @game.draw_pile_cards.each do |card| %>
-        <li> <%= card %> </li>
-      <% end %>
-    </ul>
-</div> -->
+
+
+<!--Affichage des infos de la pioche (supprimé) --> 
 
 <div class="main-wrapper text-center">
-
-  <div>
-    <% if @game.status == 'over' %>
-    <p> game over </p>
-    <% end %>
-  </div>
 
   <!-- Affichage des differents player -->
   <div class="container-player-avatar">
@@ -49,7 +37,7 @@
   </div>
 
   <!--  Affichage de la defausse et de la pioche -->
-  <div class="container-pioche-defausse">
+  <div class="container-pioche-defausse" id="myturn" data-image="<%= image_path('covid_illustration.png') %>" data-turn="<%= (current_player.id == @game.current_player.id) %>" data-alive= "<%= @game.current_player.alive %>" data-winner="<%= @game.current_player.alive == true && @game.players.alive.count == 1 %>">
     <div class="pioche-defausse">
       <h3>Defausse</h3>
       <div class="card-pioche">
@@ -76,7 +64,7 @@
 
       <!-- Affichage carte piochée -->
       <% if params[:drawed_card_codes] %>
-        <!-- <%= image_tag "cards/#{params[:drawed_card_codes]}.png", class:'draw-card', id:'draw-card' %> -->
+        <!-- erb image_tag "cards/#{params[:drawed_card_codes]}.png", class:'draw-card', id:'draw-card' erb -->
         <p>Vous avez pioché <%= params[:drawed_card_codes] %> </p>
       <% end %>
       <!-- affichage 3 premiere carte de la pioche -->
