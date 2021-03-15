@@ -26,6 +26,7 @@ require("channels")
 import "bootstrap";
 import { updateHomeCounter } from '../pages/home';
 import {  initAvatarLabel } from '../components/avatar_labels';
+import { hoverCards } from '../pages/ongoing';
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
@@ -35,4 +36,5 @@ document.addEventListener('turbolinks:load', () => {
   // initSelect2();
   updateHomeCounter();
   initAvatarLabel();
+  hoverCards();
 });
