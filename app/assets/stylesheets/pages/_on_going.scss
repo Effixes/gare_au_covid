@@ -15,6 +15,21 @@
   width: 180px;
   height: 120px;
   color: white;
+  position: relative;
+}
+
+// Le décompte des cartes
+.card-count {
+  position:absolute;
+  background-image: asset-url("cards/back.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 84px;
+  width: 61px;
+  right: -25px;
+  bottom: -70px;
+  
 }
 
 // Class avatar joueur mort
@@ -34,24 +49,32 @@
 
 // Class pioche et defausse
 .pioche-defausse {
-  width: 200px;
-  height: 250px;
   color: white;
-  border: 1px solid white;
-  border-radius: 5px;
-  margin-left: 10px;
+  margin: 0px 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background: rgba(235, 235, 235, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.24);
+  box-shadow: inset 0px -2px 19px rgba(0, 0, 0, 0.01);
+  border-radius: 16px;
+  padding: 24px;
+  height: max-content;
+  h3 {
+    font-size:18px;
+    letter-spacing:0.25px;
+    opacity:.4;
+    font-weight:700;
+    margin-top: -10px;
+    margin-bottom: 13px;
+  }
 }
 
 // Class card current player
 .card-pioche{
-  background-color:tomato;
   width:150px;
   height:200px;
-  border:1px solid red;
   color: white;
 }
 
@@ -89,9 +112,11 @@
 
 // Visuel carte de la main en éventail
 
-.container-cards {
+.container-player-interface {
   width:800px;
-  margin:260px auto;
+  margin:0 auto;
+  position:absolute;
+  bottom:160px;
 }
 
 .cards {
@@ -109,13 +134,19 @@
   transform:rotate(-23deg);
 
   &__playable {
-  border:3px solid red;
+
   }
 
-  &__inactive {
-  background-image: rgba(0, 0, 0, 0.712);
+  &__inactif::after {
+    content: ""; // ::before and ::after both require content
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(120deg, #41414193, #4e4e4e);
+    opacity: .7;
   }
-
 }
 
 .card-discard {
@@ -149,23 +180,19 @@ $rotate : -5;
   display:flex;
   justify-content: center;
   align-items: center;
-  width: 180px;
+  flex-direction:column;
   padding:10px;
   color: white;
-  border: 1px solid white;
   border-radius: 5px;
   position: absolute;
   right: 180px;
-  bottom: 300px;
+  bottom: 150px;
 }
 
 .btn-resize{
   display:flex;
   justify-content: center;
   align-items: center;
-  width:160px;
-  height: 40px;
-  bottom-padding: 30px;
 }
 
 .container-debug{
@@ -184,4 +211,77 @@ $rotate : -5;
 
 .current-player-style {
   border: 1px solid yellow;
+  box-shadow: 0 0 0 rgba(204,169,44, 0.4);
+  animation: pulse 4s infinite;
+}
+
+
+.draw-card {
+  width:270px;
+  perspective: 500px;
+  img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    transform: rotateY( 180deg ) scale(0.4);
+  }
+}
+
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  transform: rotateY( 180deg ) scale(0.4);
+}
+
+.draw-card-wrapper .content:hover {
+  width:150px;
+  height:250px;
+  perspective: 500px;
+  transform: rotateX( 0deg ) scale(1) translate(100px, 0px);
+  transition: transform 0.5s;
+  //animation: bounce-6 2s;
+}
+
+.front,
+.back {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+
+.back {
+  transform: rotateY( 180deg );
+}
+
+
+// Wrapper card drawed
+.card-pioche-wrapper {
+  width:270px;
+  & img {
+    width: 100%;
+  }
+}
+
+#card-viewer {
+  opacity:0;
+  box-shadow:0px 10px 40px rgba(0,0,0,.5);
+  transition:.2s;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+  }
+  70% {
+      box-shadow: 0 0 0 30px rgba(204,169,44, 0);
+  }
+  100% {
+      box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
 }

@@ -113,6 +113,14 @@
   font-weight: bold;
   font-size: 16px;
   letter-spacing: 0.25px;
+  transition:.3s;
+}
+
+.btn-classic-dark:hover {
+
+  box-shadow: 0px 2px 0px #2D1925;
+  transform:translateY(4px);
+  transition:.3s;
 }
 
 .btn-classic-dark-small-shadow:hover {
