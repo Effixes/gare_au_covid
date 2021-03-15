@@ -48,3 +48,5 @@ document.addEventListener('turbolinks:load', () => {
   initAvatarLabel();
   hoverCards();
 });
+
+import "controllers"
