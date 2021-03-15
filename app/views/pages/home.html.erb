@@ -11,7 +11,7 @@
           <%= f.simple_fields_for :players do |player_form| %>
             <%= image_tag "batman.png", class:'avatar-large' %>
             <%= player_form.input :avatar, collection: Player::AVATARS, as: :radio_buttons %>
-            <%= player_form.input :name, label: "CHOISIS TON PSEUDO", placeholder: "LONDUZBOUB" %>
+            <%= player_form.input :name, label: "CHOISIS TON PSEUDO", placeholder: "LONDUZBOUB", default: "player" %>
           <% end %>
         </div>
         <div class="right">
@@ -23,7 +23,7 @@
           </div>
           <div class="counter">
             <span class="minus" id="minus"><i class="fas fa-minus"></i></span>
-              <%= f.input :players_count,  label: "NOMBRE DE JOUEURS", placeholder: "1"%>
+              <%= f.input :players_count,  label: "NOMBRE DE JOUEURS", placeholder: "1" %>
             <span class="plus" id="plus"><i class="fas fa-plus"></i></span>
           </div>
 
