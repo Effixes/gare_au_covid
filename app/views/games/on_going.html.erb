@@ -1,6 +1,6 @@
 <!--Affichage des infos de la pioche -->
 <div class="" style="background-color:white">
-    <h3>Pioche</h3> 
+    <h3>Pioche</h3>
     <ul>
       <% @game.draw_pile_cards.each do |card| %>
         <li> <%= card %> </li>
@@ -26,10 +26,18 @@
         <%= image_tag "#{player.avatar}", class:'avatar-medium current-player-style' %>
         </div>
       <% else %>
-        <div class="player-avatar">
-          <h3> <%= player.name %> </h3>
-          <%= image_tag "#{player.avatar}", class:'avatar-medium' %>
-        </div>
+        <!-- Gestion de l'affichage du joueur qui ne joue pas -->
+        <% if player.alive == false %>
+           <div class="player-avatar-dead">
+            <h3> <%= player.name %> </h3>
+            <%= image_tag "#{player.avatar}", class:'avatar-medium-dead' %>
+          </div>
+        <% else %>
+          <div class="player-avatar">
+            <h3> <%= player.name %> </h3>
+            <%= image_tag "#{player.avatar}", class:'avatar-medium' %>
+          </div>
+        <% end %>
       <% end %>
     <%end%>
   </div>

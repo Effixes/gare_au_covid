@@ -25,3 +25,10 @@
   height: 90px;
   border-radius: 50%;
 }
+
+.avatar-medium-dead {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  filter: grayscale(1);
+}
