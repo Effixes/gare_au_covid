@@ -18,7 +18,15 @@ class EndTurn
     end
     @player.draw_card_count = 1
     @player.save
-    @game.current_player = @game.next_player
+
+    # test du nombre de joueurs pour passer au end_game si 1 seul joueur
+    survivors = @game.players.where(alive: true)
+    if survivors.count > 1
+      @game.current_player = @game.next_player
+    end
+
     @game.save!
   end
 end
+
+
