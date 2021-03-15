@@ -1,8 +1,17 @@
+<!--Affichage des infos de la pioche -->
+<div class="" style="background-color:white">
+    <h3>Pioche</h3> 
+    <ul>
+      <% @game.draw_pile_cards.each do |card| %>
+        <li> <%= card %> </li>
+      <% end %>
+    </ul>
+</div>
+
 <div class="main-wrapper text-center">
   <!-- Affichage des differents player -->
   <div class="container-player-avatar">
-    <% @game.players.each do |player| %>
-      <% unless player == current_player%>
+    <% @ordered_players.each do |player| %>
       <!-- Mise en surbrillance du joueur en cours -->
       <% if player.id == @game.current_player.id  %>
         <div class="player-avatar">
@@ -15,8 +24,6 @@
           <%= image_tag "#{player.avatar}", class:'avatar-medium' %>
         </div>
       <% end %>
-
-      <%end%>
     <%end%>
   </div>
 
@@ -30,12 +37,10 @@
     </div>
     
     <div class="pioche-defausse">
-    <h3>Pioche</h3>
-       <%= image_tag "cards/back.png", class: "card-discard" %>
+      <h3>Pioche</h3>
+        <%= image_tag "cards/back.png", class: "card-discard" %>
     </div>
-
   </div>
-
 
 
   <!-- Gestion pioche et fin de tour -->
