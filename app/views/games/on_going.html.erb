@@ -57,7 +57,12 @@
     </div>
   </div>
 
-
+  <!-- Affichage stat virus -->
+  <div class="container-virus">
+    <% covid_count = @game.draw_pile_cards.select{|card| card == 'covid'} %>
+    <%= image_tag "vector.png", class:'virus-picture' %>
+    <h1>50%</h1>
+  </div>
   <!-- Gestion pioche et fin de tour -->
     <% if (current_player.id == @game.current_player.id) %>
       <div class="container-button">

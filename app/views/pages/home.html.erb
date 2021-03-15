@@ -11,7 +11,7 @@
           <%= f.simple_fields_for :players do |player_form| %>
             <%= image_tag "batman.png", class:'avatar-large' %>
             <%= player_form.input :avatar, collection: Player::AVATARS, as: :radio_buttons %>
-            <%= player_form.input :name, label: "CHOISIS TON PSEUDO", placeholder: "LONDUZBOUB", default: "player" %>
+            <%= player_form.input :name, label: "CHOISIS TON PSEUDO", placeholder: "Justine", default: "player" %>
           <% end %>
         </div>
         <div class="right">

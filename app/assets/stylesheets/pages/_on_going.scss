@@ -185,3 +185,23 @@ $rotate : -5;
 .current-player-style {
   border: 1px solid yellow;
 }
+
+// Covid Stat
+.container-virus{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  height: 180px;
+  padding:10px;
+  color: white;
+  border: 1px solid grey;
+  border-radius: 50%;
+  position: absolute;
+  left: 280px;
+  bottom: 300px;
+}
+
+.virus-picture{
+  width: 120px;
+}
