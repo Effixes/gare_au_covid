@@ -12,10 +12,10 @@
 
 
             <%= player_form.collection_radio_buttons(:avatar,  Player::AVATARS.map {|avatar| [avatar,avatar]}, :first, :last) do |b, avatar|
-          b.label(class: 'js-invited-avatar') { b.radio_button(class: 'd-none') + image_tag(b.value, {class: 'invited-avatar home-avatar'})}
+          b.label(class: 'js-invited-avatar') { b.radio_button(class: 'd-none input-avatar') + image_tag(b.value, {class: 'invited-avatar home-avatar'})}
         end %>
             <a id="switch-btn">
-              Switch
+              <div class="switch"> </div>
             </a>
             <%#= player_form.input :avatar, collection: Player::AVATARS, as: :radio_buttons %>
 
@@ -42,14 +42,3 @@
       <%= f.submit class: 'btn-create' %>
     <% end %>
 </div>
-
-<script>
-  const switchBtn = document.getElementById("switch-btn");
-  const imgs = document.getElementById("imgs-container").getElementsByTagName('span');
-  switchBtn.addEventListener("click", function(e){
-    e.preventDefault();
-    imgs[2].style.zIndex = '999';
-    console.log(imgs);
-  });
-
-  </script>
