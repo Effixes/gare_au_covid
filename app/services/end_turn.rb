@@ -25,6 +25,13 @@ class EndTurn
       @game.current_player = @game.next_player
     end
 
+    # si player dead il faut balancer ses cartes dans la discard_pile
+    if @game.current_player.alive == false
+      @game.discard_pile_cards += @player.cards
+      @player.cards = []
+    end
+
+    @player.save!
     @game.save!
   end
 end
