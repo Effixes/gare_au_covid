@@ -2,19 +2,23 @@
 
 .home-wrapper {
     position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:center;
+    padding: 20px 0 40px 0;
     .home-logo {
         width:200px;
-        margin:30px auto;
+        margin:0px auto;
     }
     .btn-classic-dark {
-        position:absolute;
+        position:fixed;
         right:-20px;
         top:-30px;
     }
 
     .config {
-        margin-top:-60px;
-        margin-bottom:30px;
+        margin:30px;
         display:flex;
         align-items: end;
         position:relative;
@@ -23,5 +27,41 @@
     .left, .right {
         flex:1;
     }
+
+    .right .rules {
+        line-height:30px;
+    }
+
+    #new_game {
+        display: flex;
+    }
+
+    #imgs-container {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-direction:column;
+
+        div {
+            position: relative;
+        }
+    }
+
+    .imgs {
+        width: 160px;
+        height: 160px;
+    }
+
+    #switch-btn {
+        position: absolute;
+        right: 40px;
+        bottom: -33px;
+    }
+}
+
+.btn-rules {
+    position: absolute;
+    top: 3%;
+    right: 7%;
 }
 
