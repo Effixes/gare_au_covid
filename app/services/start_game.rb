@@ -48,9 +48,9 @@ class StartGame
     }
 
     # un kit a chaque joueur
-    # @game.players.each do |player|
-    #   player.cards << 'kit'
-    # end
+    @game.players.each do |player|
+      player.cards << 'kit'
+    end
 
     # melange jeu
     cards_temp = []
