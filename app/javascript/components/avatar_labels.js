@@ -13,4 +13,18 @@ const initAvatarLabel = () => {
   });
 }
 
+const avatarPicker = () => {
+  const switchBtn = document.getElementById("switch-btn");
+  const imgs = document.getElementById("imgs-container").getElementsByTagName('span');
+  let x = 1;
+  switchBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    let randImg = imgs[Math.floor(Math.random() * imgs.length)];
+    randImg.getElementsByClassName('input-avatar')[0].checked = true;
+    randImg.style.zIndex = x;
+    x++;
+  });
+}
+
 export { initAvatarLabel };
+export { avatarPicker };

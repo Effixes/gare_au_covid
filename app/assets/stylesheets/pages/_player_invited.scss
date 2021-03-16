@@ -6,9 +6,8 @@
 }
 
 .invited-avatar {
-  display: inline;
   margin-right: 10px;
-  width: 55px;
+  width: 150px;
   height: auto;
   border-radius: 50%;
 }
@@ -23,5 +22,7 @@ input[type="radio"]:checked + label{
 }
 
 .invited-pseudo {
-  padding-top: 25px;
+  // padding-top: 25px;
+  margin-top: 150px;
  }
+
