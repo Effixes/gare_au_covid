@@ -6,14 +6,21 @@
 
     <div class="invited-form">
       <%#= Player::AVATARS  %>
+      <div class="middle" id="imgs-container">
       <%= simple_form_for([@game, @player]) do |f| %>
+ 
         <%= f.collection_radio_buttons(:avatar,  Player::AVATARS.map {|avatar| [avatar,avatar]}, :first, :last) do |b, avatar|
-          b.label(class: 'js-invited-avatar') { b.radio_button(class: 'd-none') + image_tag(b.value, {class: 'invited-avatar'})}
+          b.label(class: 'js-invited-avatar') { b.radio_button(class: 'd-none input-avatar') + image_tag(b.value, {class: 'invited-avatar home-avatar'})}
         end %>
-        <%= f.input :name, label: 'Ton pseudo',:autofocus => true, input_html:{class: 'invited-pseudo w-50 mx-auto'}%>
+        
+        <a id="switch-btn">
+              <div class="switch"> </div>
+            </a>
+           
+        <%= f.input :name, label: 'Ton pseudo',:autofocus => true, input_html:{class: 'invited-pseudo mx-auto'}%>
         <%= f.submit 'REJOINDRE LA PARTIE', class: 'btn-create mt-3'%>
       <% end %>
+      </div>
     </div>
 </div>
-
 

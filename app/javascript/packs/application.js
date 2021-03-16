@@ -27,6 +27,7 @@ require("channels")
 import "bootstrap";
 import { updateHomeCounter } from '../pages/home';
 import {  initAvatarLabel } from '../components/avatar_labels';
+import { avatarPicker } from '../components/avatar_labels';
 
 import { popups } from '../components/popups';
 
@@ -42,6 +43,7 @@ document.addEventListener('turbolinks:load', () => {
   popups();
   updateHomeCounter();
   initAvatarLabel();
+  avatarPicker();
 });
 
 
