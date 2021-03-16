@@ -33,7 +33,7 @@ import { winner } from '../pop-up/winner_popup';
 import Swal from 'sweetalert2'
 
 import { hoverCards } from '../pages/ongoing';
-
+import "controllers"
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
@@ -48,3 +48,5 @@ document.addEventListener('turbolinks:load', () => {
   initAvatarLabel();
   hoverCards();
 });
+
+

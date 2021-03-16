@@ -4,10 +4,8 @@ const looser = () => {
 
   let myTurn = document.getElementById('myturn');
   console.log(myTurn);
-  if (myTurn =! true ) {
-  } else {
+  if (myTurn) {
 
-  myTurn = document.getElementById('myturn');
     const alive = myTurn.dataset.alive
 
     if (alive == 'false') {

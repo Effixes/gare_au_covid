@@ -4,11 +4,8 @@ const winner = () => {
 
   let myTurn = document.getElementById('myturn');
   console.log(myTurn);
-  if (myTurn =! true ) {
+  if (myTurn) {
 
-  } else {
-
-  myTurn = document.getElementById('myturn');
     const winner = myTurn.dataset.winner
 
     if (winner == 'true') {
