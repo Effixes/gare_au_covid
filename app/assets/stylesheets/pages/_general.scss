@@ -5,7 +5,7 @@
   height: 100vh;
   width: 100vw;
   position: fixed;
-  display: flex;
+
   align-items: center;
   justify-content: center;
 }
@@ -13,9 +13,10 @@
 .main-wrapper {
   width: calc(100vw - 350px);
   height: calc(100vh - 80px);
-  margin: 0px auto 0 auto;
+  margin: 40px auto 0 auto;
   border-radius: 50px;
   border: 2px solid rgba(255, 255, 255, 0.4);
+
 }
 
 .waiting-wrapper {
@@ -30,16 +31,19 @@
   border-radius: 40px;
   padding: 10px 30px 20px 30px;
   color: rgba(255, 255, 255, 0.6);
-  width: 70%;
+  width: 90%;
   margin: 0 auto;
   margin-bottom: 30px;
+  padding: 24px;
+  padding-top: 18px;
+  
 
   .title {
     font-size: 18px;
     letter-spacing: 0.25px;
-    color: rgba(255, 255, 255, 0.5);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    margin-bottom: 12px;
+    color: rgba(255, 255, 255, 1);
+    font-weight:bold;
+    padding-bottom: 6px;
   }
 }
 
@@ -89,7 +93,7 @@ a:hover {
 .left span {
   position: absolute;
   top: 0;
-  left: 170px;
+  left: 0px;
 }
 
 .middle span {
