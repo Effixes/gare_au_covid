@@ -1,15 +1,19 @@
 class StartGame
   # jeu sans covid et sans kit
+  # GAME_CARDS = {
+  #   'cluster' => 5,
+  #   'lock_down' => 5,
+  #   'mix' => 5,
+  #   'testing' => 5,
+  #   'pair_pangolins' => 4,
+  #   'pair_teletravail' => 4,
+  #   'pair_villageoise' => 4,
+  #   'pair_masques' => 4,
+  #   'pair_couvre_feu' => 4
+  # }
+
   GAME_CARDS = {
-    'cluster' => 5,
-    'lock_down' => 5,
-    'mix' => 5,
-    'testing' => 5,
-    'pair_pangolins' => 4,
-    'pair_teletravail' => 4,
-    'pair_villageoise' => 4,
-    'pair_masques' => 4,
-    'pair_couvre_feu' => 4
+    'cluster' => 21
   }
 
   def initialize(game)
@@ -34,15 +38,16 @@ class StartGame
   def dispatch_cards
     # repartir cartes :
     covid_kit = {
-      'kit' => 6 - @game.players_count,
-      'covid' => @game.players_count - 1
-      # 'covid' => 10
+      # 'kit' => 6 - @game.players_count,
+      # 'covid' => @game.players_count - 1
+      'kit' => 0,
+      'covid' => 10
     }
 
     # un kit a chaque joueur
-    @game.players.each do |player|
-      player.cards << 'kit'
-    end
+    # @game.players.each do |player|
+    #   player.cards << 'kit'
+    # end
 
     # melange jeu
     cards_temp = []

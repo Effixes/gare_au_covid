@@ -9,8 +9,9 @@ class Game < ApplicationRecord
 
   def next_player
     alive_players = players.where(alive: true).order(:table_position)
-    next_player_index = (alive_players.index(current_player) + 1) % alive_players.length
-    alive_players[next_player_index]
+
+    next_player   = alive_players.find { |player| player.table_position > current_player.table_position }
+    next_player ||= alive_players.first
   end
 
   def start
@@ -23,5 +24,9 @@ class Game < ApplicationRecord
     previous_players = ordered_players.take(player.table_position)
 
     return next_players + previous_players
+  end
+
+  def over?
+    players.alive.count == 1
   end
 end
