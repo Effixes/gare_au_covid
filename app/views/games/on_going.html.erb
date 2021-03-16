@@ -5,13 +5,6 @@
 <div class="main-wrapper text-center">
   <!-- Affichage des infos de la partie -->
 
-  <div>
-    <p>Game status: <%= @game.status %> </p>
-     <% @game.players.each do |player|  %>
-      <p> name: <%= player.name %> vivant: <%= player.alive %></p>
-     <% end %>
-  </div>
-
   <!-- Affichage des differents player -->
   <div class="container-player-avatar">
     <% @ordered_players.each do |player| %>
