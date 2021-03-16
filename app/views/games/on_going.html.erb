@@ -5,13 +5,13 @@
 <div class="main-wrapper text-center">
   <!-- Affichage des infos de la partie -->
 
-
   <div>
     <p>Game status: <%= @game.status %> </p>
      <% @game.players.each do |player|  %>
       <p> name: <%= player.name %> vivant: <%= player.alive %></p>
      <% end %>
   </div>
+
   <!-- Affichage des differents player -->
   <div class="container-player-avatar">
     <% @ordered_players.each do |player| %>
@@ -41,7 +41,7 @@
           </div>
         <% end %>
       <% end %>
-    <%end%>
+    <% end %>
   </div>
 
   <!--  Affichage de la defausse et de la pioche -->
@@ -111,7 +111,7 @@
       <% if @game.current_player.draw_card_count > 0 %>
         <%=  link_to draw_game_path(@game), method: "patch", data: { reflex: "click->Game#draw" } do %>
           <div class="btn-classic-dark btn-resize mt-2">
-            Piocher <%= @game.current_player.draw_card_count %> carte(s) 
+            Piocher <%= @game.current_player.draw_card_count %> carte(s)
           </div>
         <% end %>
       <% else %>
@@ -139,6 +139,7 @@
           <%= image_tag "cards/#{card}.png" %>
         </a>
         <% end %>
+      <% end %>
      </div>
   </div>
 
