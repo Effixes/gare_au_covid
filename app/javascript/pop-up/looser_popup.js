@@ -3,9 +3,8 @@ const Swal = require('sweetalert2')
 const looser = () => {
 
   let myTurn = document.getElementById('myturn');
-  console.log(myTurn);
-  if (myTurn) {
 
+  if (myTurn) {
     const alive = myTurn.dataset.alive
 
     if (alive == 'false') {

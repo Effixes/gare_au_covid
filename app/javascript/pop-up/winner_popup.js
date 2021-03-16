@@ -3,13 +3,11 @@ const Swal = require('sweetalert2')
 const winner = () => {
 
   let myTurn = document.getElementById('myturn');
-  console.log(myTurn);
-  if (myTurn) {
 
+  if (myTurn) {
     const winner = myTurn.dataset.winner
 
     if (winner == 'true') {
-
       Swal.fire({
         title: 'WINNER!',
         background: '#000000',

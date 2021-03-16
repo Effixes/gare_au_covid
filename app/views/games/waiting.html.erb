@@ -27,7 +27,7 @@
 
     <% if current_player == @game.host%>
       <% if @game.players_count == @game.players.length %>
-        <%= link_to "Démarrer la partie", start_game_path(@game), method: "patch", class:"btn-create mx-auto" %>
+        <%= link_to "Démarrer la partie", start_game_path(@game), method: "patch", data: { reflex: "click->Game#start" }, class:"btn-create mx-auto" %>
       <% else %>
         <div class="btn-create-inactive mx-auto">Démarrer la partie</div>
       <% end %>
