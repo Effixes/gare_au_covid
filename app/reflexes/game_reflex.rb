@@ -38,10 +38,31 @@ class GameReflex < ApplicationReflex
     params[:drawed_card_codes] = drawed_card_codes
   end
 
+  def end_turn
+    EndTurn.new(@game).call
+    EndGame.new(@game).call
+  end
+
+  def start
+    if current_player == @game.host
+      StartGame.new(@game).call
+    else
+      flash[:alert] = "En attente de la création de la partie"
+    end
+  end
+
+  def play_card
+    card_code = element.dataset[:card_code]
+    PlayCard.new(@game, card_code).call
+    params[:played_card_code] = card_code
+  end
+
   private
 
   def set_game
-    @game = Game.find(params[:id])
+    id = params[:id].presence || params[:game_id]
+
+    @game = Game.find(id)
 
     @curent_status =
       if @game.status == 'waiting' && player_has_not_joined_game?
@@ -58,5 +79,9 @@ class GameReflex < ApplicationReflex
     if @curent_status == 'on_going'
       @ordered_players = @game.ordered_other_players(current_player)
     end
+  end
+
+  def player_has_not_joined_game?
+    current_player.nil? || @game.player_ids.include?(current_player.id) == false
   end
 end
