@@ -193,13 +193,24 @@ $rotate : -5;
   align-items: center;
   width: 180px;
   height: 180px;
-  padding:10px;
+  padding: 10px;
   color: white;
   border: 1px solid grey;
   border-radius: 50%;
   position: absolute;
   left: 280px;
   bottom: 300px;
+}
+
+.virus-content{
+  background-image: asset-url("vector.png");
+  background-position: center;
+  background-size: cover;
+  width: 100px;
+  height: 100px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .virus-picture{
