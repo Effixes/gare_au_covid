@@ -34,8 +34,8 @@ class DrawCard
 
   def refill_draw_pile_cards
     # prendre la defausse
-    # mélanger defausse
-    # ajouter ça à la pioche
+    # melanger defausse
+    # ajouter ca a la pioche
     @game.draw_pile_cards += @game.discard_pile_cards.shuffle
     # supprimer la defausse
     @game.discard_pile_cards = []
