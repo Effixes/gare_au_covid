@@ -35,8 +35,8 @@ class StartGame
     # repartir cartes :
     covid_kit = {
       'kit' => 6 - @game.players_count,
-      # 'covid' => @game.players_count - 1
-      'covid' => 10
+      'covid' => @game.players_count - 1
+      # 'covid' => 10
     }
 
     # un kit a chaque joueur

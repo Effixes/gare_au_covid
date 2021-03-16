@@ -62,17 +62,30 @@
 
     <% if (current_player.id == @game.current_player.id) %>
 
-      <!-- Affichage carte piochée -->
+      <!-- Affichage carte piochée selon params -->
       <% if params[:drawed_card_codes] %>
-        <%= image_tag "cards/#{params[:drawed_card_codes][0]}.png", class:'draw-card', id:'draw-card' %>
-        <p>Vous avez pioché <%= params[:drawed_card_codes][0] %> </p>
+      <!-- Images -->
+        <% if params[:drawed_card_codes].size == 1 %>
+          <%= image_tag "cards/#{params[:drawed_card_codes][0]}.png", class:'draw-card', id:'draw-card' %>
+        <% else %>
+          <div class="draw-many-cards">
+            <% (params[:drawed_card_codes]).each do |card| %>
+              <%= image_tag "cards/#{card}.png", class:'draws' %>
+            <% end %>
+          </div>
+        <% end %>
+        <p>Vous avez pioché <%= params[:drawed_card_codes].size%> carte(s) </p>
       <% end %>
+
+
       <!-- affichage 3 premiere carte de la pioche -->
       <% if params[:played_card_code] %>
         <% if params[:played_card_code] == "testing" %>
-          <p>premiere carte: <%= @game.draw_pile_cards.first %> </p>
-          <p>deuxieme carte: <%= @game.draw_pile_cards.second %>  </p>
-          <p>troisieme carte: <%= @game.draw_pile_cards.third %> </p>
+          <div class="draw-many-cards">
+            <%= image_tag "cards/#{@game.draw_pile_cards.first}.png", class:'draws' %>
+            <%= image_tag "cards/#{@game.draw_pile_cards.second}.png", class:'draws' %>
+            <%= image_tag "cards/#{@game.draw_pile_cards.third}.png", class:'draws' %>
+          </div>
         <% end %>
         <% if params[:played_card_code].include? "pair" %>
           <p>Vous avez volé la carte: <%= @game.current_player.cards.last %> </p>
@@ -83,7 +96,7 @@
       <% if @game.current_player.draw_card_count > 0 %>
         <%=  link_to draw_game_path(@game), method: "patch", data: { reflex: "click->Game#draw" } do %>
           <div class="btn-classic-dark btn-resize mt-2">
-            Pioche
+            Piocher <%= @game.current_player.draw_card_count %> carte(s) 
           </div>
         <% end %>
 
@@ -100,19 +113,25 @@
 
 
   <div class="container-player-interface">
-    <div class="cards">
-      <% current_player.cards.each do |card| %>
-      <!-- Card jouable -->
-        <% if playable?(card) && (current_player.id == @game.current_player.id) %>
-          <%= link_to (image_tag "cards/#{card}.png"), game_played_cards_path(@game, {card_code: card}), method: "post", data: { reflex: "click->Game#play_card", card_code: card }, class: "card__playable card card-hover-zoom" %>
-        <% else %>
-        <!-- Card non jouable -->
-        <a href="" class="card card__inactif card-hover-zoom">
-          <%= image_tag "cards/#{card}.png" %>
-        </a>
+  <!-- Si le joueur est vivant -->
+    <% if current_player.alive %>
+      <div class="cards">
+        <% current_player.cards.each do |card| %>
+        <!-- Card jouable -->
+          <% if playable?(card) && (current_player.id == @game.current_player.id) %>
+            <%= link_to (image_tag "cards/#{card}.png"), game_played_cards_path(@game, {card_code: card}), method: "post", data: { reflex: "click->Game#play_card", card_code: card }, class: "card__playable card card-hover-zoom" %>
+          <% else %>
+          <!-- Card non jouable -->
+          <a href="" class="card card__inactif card-hover-zoom">
+            <%= image_tag "cards/#{card}.png" %>
+          </a>
+          <%end%>
         <%end%>
-      <%end%>
-    </div>
+      </div>
+    <%else%>
+      <p>TU ES ELIMINÉ(E)!</p>
+      <p>Attend que les autres joueurs aient fini pour pouvoir rejouer.</p>
+    <%end%>
   </div>
 
 </div>
