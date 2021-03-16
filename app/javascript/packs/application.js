@@ -28,11 +28,8 @@ import "bootstrap";
 import { updateHomeCounter } from '../pages/home';
 import {  initAvatarLabel } from '../components/avatar_labels';
 
-import { looser } from '../pop-up/looser_popup';
-import { winner } from '../pop-up/winner_popup';
-import Swal from 'sweetalert2'
+import { popups } from '../components/popups';
 
-import { hoverCards } from '../pages/ongoing';
 import "controllers"
 
 // Internal imports, e.g:
@@ -42,11 +39,9 @@ document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
 
-  looser();
-  winner();
+  popups();
   updateHomeCounter();
   initAvatarLabel();
-  hoverCards();
 });
 
 

@@ -3,7 +3,15 @@
 <!--Affichage des infos de la pioche (supprimé) -->
 
 <div class="main-wrapper text-center">
+  <!-- Affichage des infos de la partie -->
 
+
+  <div>
+    <p>Game status: <%= @game.status %> </p>
+     <% @game.players.each do |player|  %>
+      <p> name: <%= player.name %> vivant: <%= player.alive %></p>
+     <% end %>
+  </div>
   <!-- Affichage des differents player -->
   <div class="container-player-avatar">
     <% @ordered_players.each do |player| %>
@@ -37,7 +45,14 @@
   </div>
 
   <!--  Affichage de la defausse et de la pioche -->
-  <div class="container-pioche-defausse" id="myturn" data-image="<%= image_path('covid_illustration.png') %>" data-turn="<%= (current_player.id == @game.current_player.id) %>" data-alive= "<%= @game.current_player.alive %>" data-winner="<%= @game.current_player.alive == true && @game.players.alive.count == 1 %>">
+  <div class="container-pioche-defausse"
+       id="myturn"
+       data-image="<%= image_url('covid_illustration.png') %>"
+       data-turn="<%= (current_player.id == @game.current_player.id) %>"
+       data-alive="<%= current_player.alive %>"
+       data-winner="<%= @game.over? && current_player.alive == true %>"
+       data-game-over="<%= @game.over? %>"
+    >
     <div class="pioche-defausse">
       <h3>Defausse</h3>
       <div class="card-pioche">
@@ -79,21 +94,22 @@
         <% end %>
       <% end %>
 
-
-      <% if @game.current_player.draw_card_count > 0 %>
-        <%=  link_to draw_game_path(@game), method: "patch", data: { reflex: "click->Game#draw" } do %>
-          <div class="btn-classic-dark btn-resize mt-2">
-            Pioche
-          </div>
-        <% end %>
-
-        <% else %>
-        <!-- Affiche la carte pioché pour le joueur drawed_card_code -->
-          <%= link_to end_turn_game_path(@game), method: "patch", data: { reflex: "click->Game#end_turn" } do %>
+      <% unless @game.over? %>
+        <% if @game.current_player.draw_card_count > 0 %>
+          <%=  link_to draw_game_path(@game), method: "patch", data: { reflex: "click->Game#draw" } do %>
             <div class="btn-classic-dark btn-resize mt-2">
-              Fin tour
+              Pioche
             </div>
-          <% end  %>
+          <% end %>
+
+          <% else %>
+          <!-- Affiche la carte pioché pour le joueur drawed_card_code -->
+            <%= link_to end_turn_game_path(@game), method: "patch", data: { reflex: "click->Game#end_turn" } do %>
+              <div class="btn-classic-dark btn-resize mt-2">
+                Fin tour
+              </div>
+            <% end  %>
+          <% end %>
         <% end %>
       <% end %>
   </div>
@@ -104,10 +120,10 @@
       <% current_player.cards.each do |card| %>
       <!-- Card jouable -->
         <% if playable?(card) && (current_player.id == @game.current_player.id) %>
-          <%= link_to (image_tag "cards/#{card}.png"), game_played_cards_path(@game, {card_code: card}), method: "post", data: { reflex: "click->Game#play_card", card_code: card }, class: "card__playable card card-hover-zoom" %>
+          <%= link_to (image_tag "cards/#{card}.png"), game_played_cards_path(@game, {card_code: card}), method: "post", data: { controller: 'card', action: 'mouseover->card#viewCard mouseleave->card#hideCard', reflex: "click->Game#play_card", card_code: card }, class: "card__playable card card-hover-zoom" %>
         <% else %>
         <!-- Card non jouable -->
-        <a href="" class="card card__inactif card-hover-zoom">
+        <a href="" class="card card__inactif card-hover-zoom" data-controller="card" data-action="mouseover->card#viewCard mouseleave->card#hideCard">
           <%= image_tag "cards/#{card}.png" %>
         </a>
         <%end%>

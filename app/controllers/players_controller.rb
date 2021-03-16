@@ -9,9 +9,9 @@ class PlayersController < ApplicationController
     end
   end
 
-      private
+  private
 
-      def player_params
-        params.require(:player).permit(:name, :avatar)
-      end
+  def player_params
+    params.require(:player).permit(:name, :avatar)
+  end
 end
