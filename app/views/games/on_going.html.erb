@@ -1,6 +1,6 @@
 
 
-<!--Affichage des infos de la pioche (supprimé) --> 
+<!--Affichage des infos de la pioche (supprimé) -->
 
 <div class="main-wrapper text-center">
 
@@ -81,7 +81,7 @@
 
 
       <% if @game.current_player.draw_card_count > 0 %>
-        <%=  link_to draw_game_path(@game), method: "patch" do %>
+        <%=  link_to draw_game_path(@game), method: "patch", data: { reflex: "click->Game#draw"} do %>
           <div class="btn-classic-dark btn-resize mt-2">
             Pioche
           </div>

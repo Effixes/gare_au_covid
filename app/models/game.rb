@@ -16,4 +16,12 @@ class Game < ApplicationRecord
   def start
     StartGame.new(self).call
   end
+
+  def ordered_other_players(player)
+    ordered_players  = players.order(:table_position)
+    next_players     = ordered_players.drop(player.table_position + 1)
+    previous_players = ordered_players.take(player.table_position)
+
+    return next_players + previous_players
+  end
 end

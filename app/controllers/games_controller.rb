@@ -4,17 +4,19 @@ class GamesController < ApplicationController
   def show
     @curent_status =
       if @game.status == 'waiting' && player_has_not_joined_game?
-        @player = Player.new
         'player_invited'
       elsif @game.status == 'waiting'
         'waiting'
       else
-        players = Player.where(game: @game).order(:table_position)
-        next_players = players.drop((current_player.table_position)+1)
-        previous_players = players.take(current_player.table_position)
-        @ordered_players = [next_players, previous_players].flatten
         'on_going'
       end
+    # creation joueur
+    @player = Player.new
+
+    # Gestion affichage joueur ordonner
+    if @curent_status == 'on_going'
+      @ordered_players = @game.ordered_other_players(current_player)
+    end
 
     render @curent_status
   end

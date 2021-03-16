@@ -5,16 +5,19 @@ const hoverCards = () => {
 
     cards.forEach(function(card) {
         card.addEventListener('mouseover', function hover() {
-            
+
             let currentImage = card.getElementsByTagName('img')[0].currentSrc;
             cardViewer.src = currentImage;
-            cardViewer.style.opacity = "1"; 
-            drawCard.style.display="none";
+            cardViewer.style.opacity = "1";
+
+            if (drawCard) {
+              drawCard.style.display="none";
+            }
         });
-        
+
         card.addEventListener('mouseleave', function hover() {
             cardViewer.style.opacity = "0";
-        }); 
+        });
     });
 }
 export { hoverCards };
