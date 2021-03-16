@@ -31,23 +31,70 @@ class GameReflex < ApplicationReflex
   #   end
   #
   # Learn more at: https://docs.stimulusreflex.com/reflexes#reflex-classes
+
+  # # MEMO DIFF DES RENDER
+
+  # # View
+  # render partial: 'games/player_card', player: current_player
+  # # Controller / Reflex
+  # render(partial: 'games/player_card', locals: { player: current_player })
+
+  # # Controller / (default) Reflex action
+  # render 'games/on_going'
+  # # render from Reflex
+  # render(file: 'games/on_going', assigns: { game: @game, ... })
+
+
+
   before_reflex :set_game
+  before_reflex :setup_game
 
   def draw
+    # current player action
     drawed_card_codes = DrawCard.new(@game).call
     params[:drawed_card_codes] = drawed_card_codes
+
+
+    # prepare html data for other players
+    # - TODO
+    # html = render(partial: 'games/player_card', locals: { player: current_player })
+
+    # broadcast to other players
+    # - TODO
   end
 
   def end_turn
+    # current player action
     EndTurn.new(@game).call
     EndGame.new(@game).call
+
+    # prepare html data for other players
+    # - TODO
+
+    # broadcast to other players
+    # - TODO
   end
 
   def start
+    # current player action
     if current_player == @game.host
       StartGame.new(@game).call
     else
       flash[:alert] = "En attente de la création de la partie"
+    end
+
+    # prepare html data for other players
+    current_player.reload # so that he/she has a table position
+    @game.reload          # so that game status is up to date
+
+    assigns = setup_game
+    html    = render(file: 'games/on_going', layout: false, assigns: assigns)
+
+    # broadcast to other players
+    @game.players.each do |player|
+      next if player == current_player
+
+      cable_ready[PlayerChannel].replace(selector: "#game", html: html).broadcast_to(player)
     end
   end
 
@@ -63,7 +110,9 @@ class GameReflex < ApplicationReflex
     id = params[:id].presence || params[:game_id]
 
     @game = Game.find(id)
+  end
 
+  def setup_game
     @curent_status =
       if @game.status == 'waiting' && player_has_not_joined_game?
         'player_invited'
@@ -79,6 +128,9 @@ class GameReflex < ApplicationReflex
     if @curent_status == 'on_going'
       @ordered_players = @game.ordered_other_players(current_player)
     end
+
+    # to pass them to render WTF....
+    return { game: @game, ordered_players: @ordered_players, curent_status: @curent_status }
   end
 
   def player_has_not_joined_game?
