@@ -3,51 +3,72 @@
       <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
       <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
       <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <div class="rules d-block">
-          <div class="title">Résumé des règles</div>
-           <div class="rules-container">
-            <div class="rules-col1">
-                 <%= image_tag "covid_illustration.png", class:'avatar-large' %>
-             </div>
-             <div class="rules-col2 font-bold-rules">
-                <p>Si tu chopes le COVID, <br> <span class="medium">T’AS PERDU.</span></p>
-                <p>Si tu ne chopes pas le covid,  <br> <span class="medium">T’AS GAGNÉ.</span></p>
-                <p>Les autres cartes  <br> <span class="medium"> t’aides à refiler ou te protéger du covid.</span></p>
-             </div>
+        <div class="rules carousel-rules d-block">
+          <%= image_tag "cards/covid.png", class:'' %>
+
+          <div class="carousel-rules-content">
+            <div class="overtitre">Les règles</div>
+            <div class="title">Essayes de ne pas finir en réa...</div>
+            <div class="content-text">
+              Si tu choppes la COVID <span class="emphasize">T'AS PERDU !</span>
+              Si tu ne choppes pas la COVID <span class="emphasize">TU GAGNES !</span>
+              Les autres cartes t’aides à refiler ou te protéger du covid.
+            </div>
           </div>
+
         </div>
       </div>
+
       <div class="carousel-item">
-        <div class="rules d-block">
-          <div class="title">C'est ton tour</div>
-           <div class="rules-container">
-            <div class="rules-col1 font-bold-rules medium">
-                 <p>JOUES DES CARTES OU PASSE </p>
-                  <br>
-                  <p>TERMINE TON TOUR</p>
-             </div>
-             <div class="rules-col2 font-light-rules">
-                <p>Sélectionne la carte que tu veux jouer et son effet s’appliquera. Tu ne pourras cibler que le joueur suivant. Tu peux en jouer autant que tu le souhaite.
-                  Tu peux aussi décider de ne rien jouer</p>
-                  <br>
-                <p>Que tu aies choisis de jouer une carte ou passer n’y change rien, à chaque tour tu dois piocher une carte. </p>
-             </div>
+        <div class="rules carousel-rules d-block">
+          <%= image_tag "cards/cluster.png", class:'' %>
+
+          <div class="carousel-rules-content">
+            <div class="overtitre">Quand c’est ton tour</div>
+            <div class="title">Joue tes cartes</div>
+            <div class="content-text">
+              Sélectionne la carte que tu veux jouer et son effet s’appliquera. <span class="emphasize">Ta cible est le joueur suivant !</span> Tu peux en jouer autant que tu le souhaite.
+              Tu peux aussi décider de ne rien jouer. <span class="emphasize">Fini ton tour en piochant.</span>
+            </div>
           </div>
+
         </div>
       </div>
+
       <div class="carousel-item">
-        <div class="rules d-block">
-          <div class="title">Résumé des règles</div>
-           <div class="rules-container">
-            <div class="font-light-rules">
-                 <p>Le dernier joueur à ne pas avoir le COVID remporte la partie. Vous ne serez jamais à court de cartes dans la pioche, car la défausse sera réutiliser comme pioche. Par contre, à ce moment là il n’y aura plus de KIT SANITAIRE supplémentaire.</p>
-             </div>
+        <div class="rules carousel-rules d-block">
+          <%= image_tag "cards/pair_villageoise.png", class:'' %>
+
+          <div class="carousel-rules-content">
+            <div class="overtitre">Voles des cartes</div>
+            <div class="title">Joue les pairs</div>
+            <div class="content-text">
+              Ces cartes te permettront peut être de voler <span class="emphasize">la carte qu'il te faut </span> pour avancer sereinement !
+            </div>
           </div>
+
         </div>
       </div>
+
+      <div class="carousel-item">
+        <div class="rules carousel-rules d-block">
+          <%= image_tag "cards/kit.png", class:'' %>
+
+          <div class="carousel-rules-content">
+            <div class="overtitre">Protèges toi</div>
+            <div class="title">La santé avant tout</div>
+            <div class="content-text">
+              Le seul moyen (connu à ce jour) pour ne pas chopper la COVID. <span class="emphasize">c'est le kit sanitaire !</span> Essayes d'en avoir un maximum !
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>

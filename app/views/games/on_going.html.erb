@@ -85,7 +85,7 @@
             <% end %>
           </div>
         <% end %>
-        <p>Vous avez pioché <%= params[:drawed_card_codes].size%> carte(s) </p>
+        <p>Tu as pioché <%= params[:drawed_card_codes].size%> carte(s) </p>
       <% end %>
 
 
@@ -99,27 +99,25 @@
           </div>
         <% end %>
         <% if params[:played_card_code].include? "pair" %>
-          <p>Vous avez volé la carte: <%= @game.current_player.cards.last %> </p>
+          <p>Tu as volé la carte: <%= @game.current_player.cards.last %> </p>
         <% end %>
       <% end %>
 
-      <% unless @game.over? %>
-        <% if @game.current_player.draw_card_count > 0 %>
-          <%=  link_to draw_game_path(@game), method: "patch", data: { reflex: "click->Game#draw" } do %>
-            <div class="btn-classic-dark btn-resize mt-2">
-              Piocher <%= @game.current_player.draw_card_count %> carte(s)
-            </div>
-          <% end %>
-        <% else %>
-        <!-- Affiche la carte pioché pour le joueur drawed_card_code -->
-          <%= link_to end_turn_game_path(@game), method: "patch", data: { reflex: "click->Game#end_turn" } do %>
-            <div class="btn-classic-dark btn-resize mt-2">
-               Fin tour
-             </div>
-          <% end %>
+    <% unless @game.over? %>
+      <% if @game.current_player.draw_card_count > 0 %>
+        <%=  link_to draw_game_path(@game), method: "patch", data: { reflex: "click->Game#draw" } do %>
+          <div class="btn-classic-dark btn-resize mt-2">
+            Pioche <%= @game.current_player.draw_card_count %> carte(s)
+          </div>
+        <% end %>
+      <% else %>
+      <!-- Affiche la carte pioché pour le joueur drawed_card_code -->
+        <%= link_to end_turn_game_path(@game), method: "patch", data: { reflex: "click->Game#end_turn" } do %>
+          <div class="btn-classic-dark btn-resize mt-2">
+             Fin de ton tour
+           </div>
         <% end %>
       <% end %>
-
     <% end %>
   </div>
 
@@ -141,3 +139,7 @@
   </div>
 
 </div>
+
+<%= link_to rules_path(@pages), class:'btn-rules' do%>
+  <div class="btn-classic-dark">Accède aux règles</div>
+<% end %>

@@ -16,6 +16,16 @@
   height: 120px;
   color: white;
   position: relative;
+  h3 {
+    opacity: .6;
+  }
+}
+
+.player h3 {
+  color:white;
+  font-size:1rem;
+  opacity: .6;
+  letter-spacing: 0.4px;
 }
 
 // Le décompte des cartes
@@ -29,7 +39,7 @@
   width: 61px;
   right: -25px;
   bottom: -70px;
-  
+
 }
 
 // Class avatar joueur mort
