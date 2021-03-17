@@ -2,7 +2,9 @@
 
 <!--Affichage des infos de la pioche (supprimé) -->
 
-<div class="main-wrapper text-center" id="game" data-controller="player" data-player-id-value="<%= current_player.id %>" >
+<div class="main-wrapper text-center" id="<%= dom_id(@game) %>"
+     data-controller="player"
+     data-player-id-value="<%= @current_player.id %>" >
   <!-- Affichage des infos de la partie -->
 
   <!-- Affichage des differents player -->
@@ -40,10 +42,11 @@
   <!--  Affichage de la defausse et de la pioche -->
   <div class="container-pioche-defausse"
        id="myturn"
+       data-controller="end-game-popup"
        data-image="<%= image_url('covid_illustration.png') %>"
-       data-turn="<%= (current_player.id == @game.current_player.id) %>"
-       data-alive="<%= current_player.alive %>"
-       data-winner="<%= @game.over? && current_player.alive == true %>"
+       data-turn="<%= (@current_player.id == @game.current_player.id) %>"
+       data-alive="<%= @current_player.alive %>"
+       data-winner="<%= @game.over? && @current_player.alive == true %>"
        data-game-over="<%= @game.over? %>"
     >
     <div class="pioche-defausse">
@@ -68,7 +71,7 @@
       <%= image_tag "cards/cluster.png", class:'card-zoom', id:"card-viewer" %>
     </div>
 
-    <% if (current_player.id == @game.current_player.id) %>
+    <% if (@current_player.id == @game.current_player.id) %>
 
       <!-- Affichage carte piochée selon params -->
       <% if params[:drawed_card_codes] %>
@@ -114,7 +117,6 @@
              Fin de ton tour
            </div>
         <% end %>
-       <% end %>
       <% end %>
     <% end %>
   </div>
@@ -122,9 +124,9 @@
 
   <div class="container-player-interface">
     <div class="cards">
-      <% current_player.cards.each do |card| %>
+      <% @current_player.cards.each do |card| %>
       <!-- Card jouable -->
-        <% if playable?(card) && (current_player.id == @game.current_player.id) %>
+        <% if playable?(card) && (@current_player.id == @game.current_player.id) %>
           <%= link_to (image_tag "cards/#{card}.png"), game_played_cards_path(@game, {card_code: card}), method: "post", data: { controller: 'card', action: 'mouseover->card#viewCard mouseleave->card#hideCard', reflex: "click->Game#play_card", card_code: card }, class: "card__playable card card-hover-zoom" %>
         <% else %>
         <!-- Card non jouable -->

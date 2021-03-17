@@ -1,4 +1,7 @@
-<div class="main-wrapper waiting-wrapper text-center" id="game" data-controller="player" data-player-id-value="<%= current_player.id %>" >
+<div class="main-wrapper waiting-wrapper text-center"
+     id="<%= dom_id(@game) %>"
+     data-controller="player"
+     data-player-id-value="<%= @current_player.id %>">
   <div class="players-container">
 
     <% if @game.players_count > @game.players.length %>
