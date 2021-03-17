@@ -1,15 +1,12 @@
 const Swal = require('sweetalert2')
+import ApplicationController from './application_controller'
 
-const popups = () => {
-
-  let myTurn = document.getElementById('myturn');
-
-  if (myTurn) {
-    const image    = myturn.dataset.image;
-
-    const alive    = myTurn.dataset.alive;
-    const winner   = myTurn.dataset.winner;
-    const gameOver = myturn.dataset.gameOver;
+export default class extends ApplicationController {
+  connect() {
+    const image    = this.element.dataset.image;
+    const alive    = this.element.dataset.alive;
+    const winner   = this.element.dataset.winner;
+    const gameOver = this.element.dataset.gameOver;
 
     // j'ai gagne la partie
     if (winner == 'true') {
@@ -44,6 +41,4 @@ const popups = () => {
       })
     }
   }
-};
-
-export { popups };
+}

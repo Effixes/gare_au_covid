@@ -29,8 +29,6 @@ import { updateHomeCounter } from '../pages/home';
 import {  initAvatarLabel } from '../components/avatar_labels';
 import { avatarPicker } from '../components/avatar_labels';
 
-import { popups } from '../components/popups';
-
 import "controllers"
 
 // Internal imports, e.g:
@@ -40,7 +38,6 @@ document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
 
-  popups();
   updateHomeCounter();
   initAvatarLabel();
   avatarPicker();

@@ -44,36 +44,8 @@ class GameReflex < ApplicationReflex
   # # render from Reflex
   # render(file: 'games/on_going', assigns: { game: @game, ... })
 
-
-
   before_reflex :set_game
   before_reflex :setup_game
-
-  def draw
-    # current player action
-    drawed_card_codes = DrawCard.new(@game).call
-    params[:drawed_card_codes] = drawed_card_codes
-
-
-    # prepare html data for other players
-    # - TODO
-    # html = render(partial: 'games/player_card', locals: { player: current_player })
-
-    # broadcast to other players
-    # - TODO
-  end
-
-  def end_turn
-    # current player action
-    EndTurn.new(@game).call
-    EndGame.new(@game).call
-
-    # prepare html data for other players
-    # - TODO
-
-    # broadcast to other players
-    # - TODO
-  end
 
   def start
     # current player action
@@ -87,21 +59,80 @@ class GameReflex < ApplicationReflex
     current_player.reload # so that he/she has a table position
     @game.reload          # so that game status is up to date
 
-    assigns = setup_game
-    html    = render(file: 'games/on_going', layout: false, assigns: assigns)
-
     # broadcast to other players
     @game.players.each do |player|
       next if player == current_player
 
-      cable_ready[PlayerChannel].replace(selector: "#game", html: html).broadcast_to(player)
+      assigns = setup_game(player)
+      html    = render(file: 'games/on_going', layout: false, assigns: assigns)
+
+      cable_ready[PlayerChannel].replace(selector: dom_id(@game), html: html).broadcast_to(player)
     end
+
+    @current_player = current_player
   end
 
   def play_card
     card_code = element.dataset[:card_code]
     PlayCard.new(@game, card_code).call
     params[:played_card_code] = card_code
+
+    # Prepare html data for other players
+    current_player.reload # Reload for table position
+    @game.reload          # game status is up to date
+
+    # Broadcast to other players
+    @game.players.each do |player|
+      next if player == current_player
+
+      assigns = setup_play_card(player)
+      html    = render(file: 'games/on_going', layout: false, assigns: assigns)
+
+      cable_ready[PlayerChannel].replace(selector: dom_id(@game), html: html).broadcast_to(player)
+    end
+    @current_player = current_player
+  end
+
+  def draw
+    # current player action
+    drawed_card_codes = DrawCard.new(@game).call
+    params[:drawed_card_codes] = drawed_card_codes
+
+    # Prepare html data for other players
+    current_player.reload # Reload for table position
+    @game.reload          # game status is up to date
+
+    # broadcast to other players
+    @game.players.each do |player|
+      next if player == current_player
+
+      assigns = setup_play_card(player)
+      html    = render(file: 'games/on_going', layout: false, assigns: assigns)
+
+      cable_ready[PlayerChannel].replace(selector: dom_id(@game), html: html).broadcast_to(player)
+    end
+    @current_player = current_player
+  end
+
+  def end_turn
+    # current player action
+    EndTurn.new(@game).call
+    EndGame.new(@game).call
+
+    # Prepare html data for other players
+    current_player.reload # Reload for table position
+    @game.reload          # game status is up to date
+
+    # broadcast to other players
+    @game.players.each do |player|
+      next if player == current_player
+
+      assigns = setup_play_card(player)
+      html    = render(file: 'games/on_going', layout: false, assigns: assigns)
+
+      cable_ready[PlayerChannel].replace(selector: dom_id(@game), html: html).broadcast_to(player)
+    end
+    @current_player = current_player
   end
 
   private
@@ -112,7 +143,8 @@ class GameReflex < ApplicationReflex
     @game = Game.find(id)
   end
 
-  def setup_game
+  # we need to pass player as argument as current_player is found from session[:player_id]
+  def setup_game(player = current_player)
     @curent_status =
       if @game.status == 'waiting' && player_has_not_joined_game?
         'player_invited'
@@ -126,11 +158,21 @@ class GameReflex < ApplicationReflex
 
     # Gestion affichage joueur ordonner
     if @curent_status == 'on_going'
-      @ordered_players = @game.ordered_other_players(current_player)
+      @ordered_players = @game.ordered_other_players(player)
     end
-
+    @current_player = player
     # to pass them to render WTF....
-    return { game: @game, ordered_players: @ordered_players, curent_status: @curent_status }
+    return { game: @game, ordered_players: @ordered_players, current_player: @current_player, curent_status: @curent_status }
+  end
+
+  # we need to pass player as argument as current_player is found from session[:player_id]
+  def setup_play_card(player = current_player)
+
+    # Gestion affichage joueur ordonner
+    @ordered_players = @game.ordered_other_players(player)
+    @current_player = player
+    # return { game: @game, ordered_players: @ordered_players, params: { played_card_code: card_code } }
+    return { game: @game, ordered_players: @ordered_players, current_player: @current_player }
   end
 
   def player_has_not_joined_game?
