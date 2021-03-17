@@ -45,7 +45,7 @@ class GameReflex < ApplicationReflex
   # render(file: 'games/on_going', assigns: { game: @game, ... })
 
   before_reflex :set_game
-  before_reflex :setup_game
+  before_reflex :setup_game, only: [:start]
 
   def start
     # current player action
