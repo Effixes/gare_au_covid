@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   private
 
   def default_url_options
-    { host: ENV["DOMAIN"] || "localhost:3000" }
+    { host: ENV["www.gare-au-covid.com"] || "localhost:3000" }
   end
 
   def set_current_player(player)
@@ -21,3 +21,4 @@ class ApplicationController < ActionController::Base
     session[:player_id] = player.id
   end
 end
+
