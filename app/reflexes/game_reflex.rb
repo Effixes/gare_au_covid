@@ -85,12 +85,13 @@ class GameReflex < ApplicationReflex
     @game.players.each do |player|
       next if player == current_player
 
-      assigns = setup_play_card(player)
-      html    = render(file: 'games/on_going', layout: false, assigns: assigns)
+      html = render(partial: 'games/board', locals: partial_locals(player))
 
-      cable_ready[PlayerChannel].replace(selector: dom_id(@game), html: html).broadcast_to(player)
+      cable_ready[PlayerChannel].replace(selector: dom_id(@current_player), html: html).broadcast_to(player)
     end
-    @current_player = current_player
+
+    html = render(partial: 'games/board', locals: partial_locals(current_player))
+    morph dom_id(@current_player), html
   end
 
   def draw
@@ -106,12 +107,13 @@ class GameReflex < ApplicationReflex
     @game.players.each do |player|
       next if player == current_player
 
-      assigns = setup_play_card(player)
-      html    = render(file: 'games/on_going', layout: false, assigns: assigns)
+      html = render(partial: 'games/board', locals: partial_locals(player))
 
-      cable_ready[PlayerChannel].replace(selector: dom_id(@game), html: html).broadcast_to(player)
+      cable_ready[PlayerChannel].replace(selector: dom_id(player), html: html).broadcast_to(player)
     end
-    @current_player = current_player
+
+    html = render(partial: 'games/board', locals: partial_locals(current_player))
+    morph dom_id(@current_player), html
   end
 
   def end_turn
@@ -127,12 +129,13 @@ class GameReflex < ApplicationReflex
     @game.players.each do |player|
       next if player == current_player
 
-      assigns = setup_play_card(player)
-      html    = render(file: 'games/on_going', layout: false, assigns: assigns)
+      html = render(partial: 'games/board', locals: partial_locals(player))
 
-      cable_ready[PlayerChannel].replace(selector: dom_id(@game), html: html).broadcast_to(player)
+      cable_ready[PlayerChannel].replace(selector: dom_id(@current_player), html: html).broadcast_to(player)
     end
-    @current_player = current_player
+
+    html = render(partial: 'games/board', locals: partial_locals(current_player))
+    morph dom_id(@current_player), html
   end
 
   private
@@ -166,13 +169,12 @@ class GameReflex < ApplicationReflex
   end
 
   # we need to pass player as argument as current_player is found from session[:player_id]
-  def setup_play_card(player = current_player)
-
+  def partial_locals(player = current_player)
     # Gestion affichage joueur ordonner
     @ordered_players = @game.ordered_other_players(player)
-    @current_player = player
+    @current_player  = player
     # return { game: @game, ordered_players: @ordered_players, params: { played_card_code: card_code } }
-    return { game: @game, ordered_players: @ordered_players, current_player: @current_player }
+    return { game: @game, ordered_players: @ordered_players, board_player: player, params: params }
   end
 
   def player_has_not_joined_game?
