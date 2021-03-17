@@ -5,6 +5,7 @@
       <% num = @game.players_count - 1 %>
       <%  num.times do %>
         <div class="player">
+          <h3>Joueur en attente</h3>
           <%= image_tag "unknown.png", class:'avatar-medium' %>
         </div>
       <%end%>
@@ -29,10 +30,10 @@
       <% if @game.players_count == @game.players.length %>
         <%= link_to "Démarrer la partie", start_game_path(@game), method: "patch", data: { reflex: "click->Game#start" }, class:"btn-create mx-auto" %>
       <% else %>
-        <div class="btn-create-inactive mx-auto">Démarrer la partie</div>
+     <div> </div>
       <% end %>
     <% else %>
-      <p>En attente de la création de la partie</p>
+      <p class="waiting-sentence">Création de la partie en cours </p>
     <% end %>
 
 
