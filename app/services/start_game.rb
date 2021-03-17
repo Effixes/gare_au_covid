@@ -39,9 +39,9 @@ class StartGame
   def dispatch_cards
     # repartir cartes :
     covid_kit = {
-      'kit' => 6 - @game.players_count,
+      #'kit' => 6 - @game.players_count,
       # 'covid' => @game.players_count - 1
-      'covid' => 10
+      'covid' => 5
 
       # Version pour test mort rapide
       # 'kit' => 0,

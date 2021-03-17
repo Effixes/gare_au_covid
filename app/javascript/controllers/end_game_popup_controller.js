@@ -37,7 +37,7 @@ export default class extends ApplicationController {
         background: '#000000',
         imageUrl: image,
         text: 'Tu as pris beaucoup trop de risques, pas étonnant que tu sois en réa...',
-        confirmButtonText: 'BeuuuBye !',
+        confirmButtonText: 'ByBye !',
       })
     }
   }
