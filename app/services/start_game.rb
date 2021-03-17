@@ -41,16 +41,14 @@ class StartGame
     covid_kit = {
       #'kit' => 6 - @game.players_count,
       # 'covid' => @game.players_count - 1
-      'covid' => 5
-
       # Version pour test mort rapide
       # 'kit' => 0,
-      # 'covid' => 10
+       'covid' => 5
     }
 
     # un kit a chaque joueur
     @game.players.each do |player|
-      # player.cards << 'kit'
+      player.cards << 'kit'
     end
 
     # melange jeu
