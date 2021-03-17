@@ -14,11 +14,11 @@
                 <div class="switch"> </div>
               </a>
             </div>
-            
+
             <%#= player_form.input :avatar, collection: Player::AVATARS, as: :radio_buttons %>
 
 
-            <%= player_form.input :name, label: "CHOISIS TON PSEUDO", placeholder: "LONDUZBOUB" %>
+            <%= player_form.input :name, label: "CHOISIS TON PSEUDO", placeholder: "Dealer2chloro" %>
 
           <% end %>
         </div>
@@ -27,7 +27,7 @@
             <div class="title">
               Comment jouer ?
             </div>
-            Choisis toi un pseudo, un avatar puis choisis le nombre de joueurs avec lesquels tu veux jouer et crées la partie
+            Choisis toi un pseudo, un avatar puis choisis le nombre de joueurs avec lesquels tu veux jouer et crées la partie !
           </div>
           <div class="label-count">
           Nombre de joueurs</div>
@@ -39,10 +39,10 @@
 
         </div>
       </div>
-      <%= f.submit class: 'btn-create' %>
+      <%= f.submit 'Créer la partie', class: 'btn-create' %>
     <% end %>
 </div>
 
-  <%= link_to rules_path(@pages), class:'btn-rules' do%>
-    <div class="btn-classic-dark">Accéder aux règles</div>
-  <% end %>
+<%= link_to rules_path(@pages), class:'btn-rules' do%>
+  <div class="btn-classic-dark">Accède aux règles</div>
+<% end %>

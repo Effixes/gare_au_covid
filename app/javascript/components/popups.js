@@ -14,7 +14,7 @@ const popups = () => {
     // j'ai gagne la partie
     if (winner == 'true') {
       Swal.fire({
-        title: 'WINNER!',
+        title: 'WINNER !',
         background: '#000000',
         imageUrl: image,
         text: 'Yeahhh, malgré quelques écarts, tu as réussi à éviter la COVID...',
@@ -26,17 +26,17 @@ const popups = () => {
     // partie terminee, j'ai perdu
     else if (gameOver == 'true') {
       Swal.fire({
-        title: 'PERDU !!!!',
+        title: 'GAME OVER !!!!',
         background: '#000000',
         imageUrl: image,
-        text: 'Partie terminee',
-        confirmButtonText: 'BeuuuBye !',
+        text: 'NOOON tu es contaminé(e) et pire que ça la partie est maintenant terminée !',
+        confirmButtonText: 'Nouvelle partie ?',
       })
     }
     // J'ai perdu (COVID), le jeu est en cours
     else if (alive == 'false') {
       Swal.fire({
-        title: 'CONTAMINE(E)!',
+        title: 'CONTAMINE(E) !',
         background: '#000000',
         imageUrl: image,
         text: 'Tu as pris beaucoup trop de risques, pas étonnant que tu sois en réa...',

@@ -1,0 +1,31 @@
+.waiting-wrapper {
+  padding: 20px 0 40px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .avatar-medium {
+    box-shadow: 0 0 0 rgba(204,169,44, 0.4);
+    animation: pulse 4s infinite;
+  }
+  .waiting-sentence {
+    color: white;
+    letter-spacing: .5px;
+    opacity: .6;
+    &:after {
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: bottom;
+      animation: ellipsis steps(4,end) 3900ms infinite;
+      content: "\2026"; /* ascii code for the ellipsis character */
+      width: 0px;
+    }
+  }
+}
+
+
+@keyframes ellipsis {
+  to {
+    width: 1.25em;
+  }
+}
+
