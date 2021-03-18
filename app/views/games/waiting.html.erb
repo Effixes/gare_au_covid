@@ -31,17 +31,25 @@
       <%= render 'shared/rules' %>
     </div>
 
+    <% if current_player == @game.host%>
+      <% if @game.players_count == @game.players.length %>
 
-      <% if current_player == @game.host%>
-        <% if @game.players_count == @game.players.length %>
-          <%= link_to "Démarrer la partie", start_game_path(@game), method: "patch", data: { reflex: "click->Game#start" }, class:"btn-create mx-auto" %>
-        <% else %>
-       <div> </div>
-        <% end %>
+        <%= link_to " Démarrer la partie", start_game_path(@game), method: "patch", data: { reflex: "click->Game#start" }, class:"btn-create mx-auto" %>
       <% else %>
-        <p class="waiting-sentence">Création de la partie en cours </p>
+
+        <div data-controller="clipboard">
+          <% def original_url %>
+            <% base_url + original_fullpath %>
+          <% end %>
+          <input id="game-url" data-clipboard-target="source" type="text" value="<%= request.original_url %>" readonly>
+          <button data-action="clipboard#copy" class="btn-create mx-auto"> Invite tes potes</button>
+          </div>
+        </div>
       <% end %>
 
+    <% else %>
+      <p class="waiting-sentence">Création de la partie en cours </p>
+    <% end %>
 
   </div>
 </div>
