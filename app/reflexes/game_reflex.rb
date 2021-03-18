@@ -55,21 +55,19 @@ class GameReflex < ApplicationReflex
       return flash[:alert] = "En attente de la création de la partie"
     end
 
-    # prepare html data for other players
-    current_player.reload # so that he/she has a table position
-    @game.reload          # so that game status is up to date
+    @game.reload
 
-    # broadcast to other players
     @game.players.each do |player|
-      next if player == current_player
+      player.reload
+      html = render(partial: 'games/board', locals: partial_locals(player))
 
-      assigns = setup_game(player)
-      html    = render(file: 'games/on_going', layout: false, assigns: assigns)
+      cable_ready[PlayerChannel].inner_html(selector: dom_id(player), html: html).
+        insert_adjacent_html(selector: dom_id(@game), html: render(partial: 'games/rules')).
+        remove_css_class(selector: dom_id(@game), name: "waiting-wrapper").broadcast_to(player)
 
-      cable_ready[PlayerChannel].replace(selector: dom_id(@game), html: html).broadcast_to(player)
     end
 
-    @current_player = current_player
+    morph :nothing
   end
 
   def play_card
