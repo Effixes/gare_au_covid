@@ -1,33 +1,35 @@
 <div class="main-wrapper waiting-wrapper text-center"
      id="<%= dom_id(@game) %>"
+     data-reflex-root="[board]"
      data-controller="player"
      data-player-id-value="<%= @current_player.id %>">
-  <div class="players-container">
 
-    <% if @game.players_count > @game.players.length %>
-      <% num = @game.players_count - 1 %>
-      <%  num.times do %>
-        <div class="player">
-          <h3>Joueur en attente</h3>
-          <%= image_tag "unknown.png", class:'avatar-medium' %>
-        </div>
-      <%end%>
-    <%else%>
-      <% @game.players.each do |player| %>
-        <% unless player == current_player%>
-          <div class="player-avatar">
-            <h3> <%= player.name %> </h3>
-           <%= image_tag "#{player.avatar}", class:'avatar-medium' %>
-        </div>
+  <div board id="<%= dom_id(@current_player) %>">
+    <div class="players-container">
+
+      <% if @game.players_count > @game.players.length %>
+        <% num = @game.players_count - 1 %>
+        <%  num.times do %>
+          <div class="player">
+            <h3>Joueur en attente</h3>
+            <%= image_tag "unknown.png", class:'avatar-medium' %>
+          </div>
+        <%end%>
+      <%else%>
+        <% @game.players.each do |player| %>
+          <% unless player == current_player%>
+            <div class="player-avatar">
+              <h3> <%= player.name %> </h3>
+             <%= image_tag "#{player.avatar}", class:'avatar-medium' %>
+          </div>
+          <%end%>
         <%end%>
       <%end%>
-    <%end%>
-  </div>
+    </div>
 
-  <div>
-    <%= render 'shared/rules' %>
-  </div>
-
+    <div>
+      <%= render 'shared/rules' %>
+    </div>
 
     <% if current_player == @game.host%>
       <% if @game.players_count == @game.players.length %>
@@ -36,18 +38,18 @@
       <% else %>
 
         <div data-controller="clipboard">
-        <% def original_url %>
-          <% base_url + original_fullpath %>
-        <% end %>
-        <input id="game-url" data-clipboard-target="source" type="text" value="<%= request.original_url %>" readonly>
-        <button data-action="clipboard#copy" class="btn-create mx-auto"> Invite tes potes</button>
+          <% def original_url %>
+            <% base_url + original_fullpath %>
+          <% end %>
+          <input id="game-url" data-clipboard-target="source" type="text" value="<%= request.original_url %>" readonly>
+          <button data-action="clipboard#copy" class="btn-create mx-auto"> Invite tes potes</button>
+          </div>
         </div>
-       </div>
       <% end %>
 
     <% else %>
       <p class="waiting-sentence">Création de la partie en cours </p>
     <% end %>
 
-
+  </div>
 </div>

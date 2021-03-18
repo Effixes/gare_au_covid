@@ -52,45 +52,32 @@ class GameReflex < ApplicationReflex
     if current_player == @game.host
       StartGame.new(@game).call
     else
-      flash[:alert] = "En attente de la création de la partie"
+      return flash[:alert] = "En attente de la création de la partie"
     end
 
-    # prepare html data for other players
-    current_player.reload # so that he/she has a table position
-    @game.reload          # so that game status is up to date
+    @game.reload
 
-    # broadcast to other players
     @game.players.each do |player|
-      next if player == current_player
+      player.reload
+      html = render(partial: 'games/board', locals: partial_locals(player))
 
-      assigns = setup_game(player)
-      html    = render(file: 'games/on_going', layout: false, assigns: assigns)
+      cable_ready[PlayerChannel].inner_html(selector: dom_id(player), html: html).
+        insert_adjacent_html(selector: dom_id(@game), html: render(partial: 'games/rules')).
+        remove_css_class(selector: dom_id(@game), name: "waiting-wrapper").broadcast_to(player)
 
-      cable_ready[PlayerChannel].replace(selector: dom_id(@game), html: html).broadcast_to(player)
     end
 
-    @current_player = current_player
+    morph :nothing
   end
 
   def play_card
+    # current player action
     card_code = element.dataset[:card_code]
     PlayCard.new(@game, card_code).call
     params[:played_card_code] = card_code
 
-    # Prepare html data for other players
-    current_player.reload # Reload for table position
-    @game.reload          # game status is up to date
-
-    # Broadcast to other players
-    @game.players.each do |player|
-      next if player == current_player
-
-      assigns = setup_play_card(player)
-      html    = render(file: 'games/on_going', layout: false, assigns: assigns)
-
-      cable_ready[PlayerChannel].replace(selector: dom_id(@game), html: html).broadcast_to(player)
-    end
-    @current_player = current_player
+    # Broadcast new board to players
+    broadcast_board_to_players
   end
 
   def draw
@@ -98,20 +85,8 @@ class GameReflex < ApplicationReflex
     drawed_card_codes = DrawCard.new(@game).call
     params[:drawed_card_codes] = drawed_card_codes
 
-    # Prepare html data for other players
-    current_player.reload # Reload for table position
-    @game.reload          # game status is up to date
-
-    # broadcast to other players
-    @game.players.each do |player|
-      next if player == current_player
-
-      assigns = setup_play_card(player)
-      html    = render(file: 'games/on_going', layout: false, assigns: assigns)
-
-      cable_ready[PlayerChannel].replace(selector: dom_id(@game), html: html).broadcast_to(player)
-    end
-    @current_player = current_player
+    # Broadcast new board to players
+    broadcast_board_to_players
   end
 
   def end_turn
@@ -119,20 +94,8 @@ class GameReflex < ApplicationReflex
     EndTurn.new(@game).call
     EndGame.new(@game).call
 
-    # Prepare html data for other players
-    current_player.reload # Reload for table position
-    @game.reload          # game status is up to date
-
-    # broadcast to other players
-    @game.players.each do |player|
-      next if player == current_player
-
-      assigns = setup_play_card(player)
-      html    = render(file: 'games/on_going', layout: false, assigns: assigns)
-
-      cable_ready[PlayerChannel].replace(selector: dom_id(@game), html: html).broadcast_to(player)
-    end
-    @current_player = current_player
+    # Broadcast new board to players
+    broadcast_board_to_players
   end
 
   private
@@ -166,16 +129,26 @@ class GameReflex < ApplicationReflex
   end
 
   # we need to pass player as argument as current_player is found from session[:player_id]
-  def setup_play_card(player = current_player)
-
+  def partial_locals(player = current_player)
     # Gestion affichage joueur ordonner
     @ordered_players = @game.ordered_other_players(player)
-    @current_player = player
-    # return { game: @game, ordered_players: @ordered_players, params: { played_card_code: card_code } }
-    return { game: @game, ordered_players: @ordered_players, current_player: @current_player }
+
+    return { game: @game, ordered_players: @ordered_players, board_player: player, params: params }
   end
 
   def player_has_not_joined_game?
     current_player.nil? || @game.player_ids.include?(current_player.id) == false
+  end
+
+  def broadcast_board_to_players
+    @game.reload
+
+    @game.players.each do |player|
+      player.reload
+      html = render(partial: 'games/board', locals: partial_locals(player))
+      cable_ready[PlayerChannel].inner_html(selector: dom_id(player), html: html).broadcast_to(player)
+    end
+
+    morph :nothing
   end
 end
