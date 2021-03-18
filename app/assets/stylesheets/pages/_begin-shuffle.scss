@@ -1,0 +1,117 @@
+
+.begin-rules {
+    position:fixed;
+    width:100vw;
+    height:100vh;
+    z-index: 999;
+    //background: black;
+    left: 0;
+    top:0;
+    .card-count {
+        display:none;
+    }
+}
+
+.decks-shuffle {
+    position:relative;
+    margin-left: 38%    ;
+  }
+  .deck {
+    position:absolute;
+    img {
+      width:250px;
+      transform:rotate(20deg);
+      animation: scaleDown 1s;
+      animation-delay: 3s;
+      animation-fill-mode: forwards;
+    }
+  }
+  .deck-back {
+    animation: zIndex 1s;
+    animation-iteration-count: 3;
+    animation-timing-function:cubic-bezier(0,.75,.62,1.01);
+  }
+  .deck-front {
+    animation: shuffleCard 1s;
+    animation-iteration-count: 3;
+    animation-timing-function:cubic-bezier(0,.75,.62,1.01);
+  }
+  /*.deck-middle {
+    animation: shuffleCard 1s infinite;
+    animation-delay: .5s;
+    animation-timing-function:cubic-bezier(0,.75,.62,1.01);
+  }*/
+  .deal-cards {
+    position:relative;
+  }
+  .deal-cards img {
+    width:50px;
+    position:absolute;
+  }
+  
+  @keyframes zIndex {
+    0% {
+      z-index: 99;
+    }
+    50% {
+      z-index: 0;
+    }
+    100% {
+      z-index: 5;
+    }
+  }
+  @keyframes shuffleCard {
+    0% {
+      left:0;
+      z-index: 0;
+    }
+    50% {
+      left:60px;
+      z-index: 5;
+    }
+    100% {
+      left:0px;
+      z-index: 99;
+    }
+  }
+  @keyframes shuffleCardLight {
+    0% {
+      left:0;
+      z-index: 5;
+    }
+    50% {
+      left:30px;
+      z-index: 99;
+    }
+    100% {
+      left:0px;
+      z-index: 0;
+    }
+  }
+  @keyframes scaleDown {
+    0% {
+      width:250px;
+      opacity:1;
+      transform:translateX(0px) translateY(0px) rotate(20deg);
+    }
+    100% {
+      width:100px;
+      opacity:0;
+      transform: translateX(200px) translateY(100px) rotate(0deg);
+    }
+  }
+
+  .animate-cards {
+      animation:fadeCardsIn 2s;
+  }
+
+  @keyframes fadeCardsIn {
+      0% {
+          opacity:0;
+          transform:translateY(200px);
+      }
+      100% {
+          opacity:1;
+          transform:translateY(0px);
+      }
+  }
