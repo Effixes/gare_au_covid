@@ -31,11 +31,13 @@
       <% end %>
     </div>
 
+    <p><span class="last-action-message"><%= params[:last_action] || "coucou" %></span></p>
+
     <!--  Affichage de la defausse et de la pioche -->
     <div class="container-pioche-defausse"
          id="myturn"
          data-controller="end-game-popup"
-         data-image="<%= image_url('covid_illustration.png') %>"
+         data-image="<%= image_path('covid_illustration.png') %>"
          data-turn="<%= (board_player.id == game.current_player.id) %>"
          data-alive="<%= board_player.alive %>"
          data-winner="<%= game.over? && board_player.alive == true %>"

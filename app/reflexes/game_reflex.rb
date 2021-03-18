@@ -46,6 +46,7 @@ class GameReflex < ApplicationReflex
 
   before_reflex :set_game
   before_reflex :setup_game, only: [:start]
+  before_reflex :set_player_name
 
   def start
     # current player action
@@ -79,6 +80,9 @@ class GameReflex < ApplicationReflex
     PlayCard.new(@game, card_code).call
     params[:played_card_code] = card_code
 
+    # last_action_player
+    params[:last_action] = "#{@player_name} a joué la carte : #{Card.name(card_code)}"
+
     # Broadcast new board to players
     broadcast_board_to_players
   end
@@ -88,14 +92,24 @@ class GameReflex < ApplicationReflex
     drawed_card_codes = DrawCard.new(@game).call
     params[:drawed_card_codes] = drawed_card_codes
 
+    # last_action_player
+    draw_card_last_action
+
     # Broadcast new board to players
     broadcast_board_to_players
   end
 
   def end_turn
     # current player action
+    player    = @game.current_player
+    has_covid = player.cards.include?('covid')
+
     EndTurn.new(@game).call
     EndGame.new(@game).call
+
+
+    # last_action_player
+    end_turn_message(player, has_covid)
 
     # Broadcast new board to players
     broadcast_board_to_players
@@ -107,6 +121,10 @@ class GameReflex < ApplicationReflex
     id = params[:id].presence || params[:game_id]
 
     @game = Game.find(id)
+  end
+
+  def set_player_name
+    @player_name = @game.current_player&.name
   end
 
   # we need to pass player as argument as current_player is found from session[:player_id]
@@ -153,5 +171,25 @@ class GameReflex < ApplicationReflex
     end
 
     morph :nothing
+  end
+
+  def draw_card_last_action
+    if params[:drawed_card_codes].include?("covid")
+      return params[:last_action] = "#{@player_name} a choppé la Covid !!!"
+    end
+
+    params[:last_action] = "#{@player_name} a pioché #{helpers.pluralize(params[:drawed_card_codes].length, "carte")} !"
+  end
+
+  def end_turn_message(player, has_covid)
+    player.reload
+
+    if has_covid && player.alive?
+      return params[:last_action] = "Mais #{@player_name} avait un kit !!"
+    elsif player.alive?
+      return params[:last_action] = "#{@player_name} a fini son tour !"
+    end
+
+    params[:last_action] = "#{@player_name} est infecté !!!"
   end
 end
