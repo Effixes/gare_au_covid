@@ -144,14 +144,13 @@ class GameReflex < ApplicationReflex
 
   def broadcast_board_to_players
     @game.reload
-​
+
     @game.players.each do |player|
       player.reload
       html = render(partial: 'games/board', locals: partial_locals(player))
-​
       cable_ready[PlayerChannel].inner_html(selector: dom_id(player), html: html).broadcast_to(player)
     end
-​
+
     morph :nothing
   end
 end
