@@ -4,4 +4,13 @@ class Player < ApplicationRecord
   belongs_to :game
 
   scope :alive, -> { where(alive: true)}
+  before_create :set_default_avatar
+
+  private
+
+  def set_default_avatar
+    return if avatar.present?
+
+    assign_attributes(avatar: AVATARS.sample)
+  end
 end

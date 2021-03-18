@@ -9,8 +9,8 @@
   <%= render 'games/board', ordered_players: @ordered_players, game: @game, board_player: @current_player %>
 </div>
 
+<!-- Affichage button regles -->
+<%= render 'games/rules' %>
 
 
-<%= link_to rules_path(@pages), class:'btn-rules' do%>
-  <div class="btn-classic-dark">Accède aux règles</div>
-<% end %>
+
