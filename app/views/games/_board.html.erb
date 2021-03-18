@@ -46,7 +46,7 @@
         <h3>Defausse</h3>
         <div class="card-pioche">
           <a href="" class="card-hover-zoom">
-            <%= image_tag "cards/#{game.discard_pile_cards.last}.png", class: "card-discard" if game.discard_pile_cards.last %>
+            <%= image_tag "cards/#{game.discard_pile_cards.last}.png", class: "card-discard #{'card-defausse-anim' if (params[:played_card_code] == game.discard_pile_cards.last)}" if game.discard_pile_cards.last %>
           </a>
         </div>
       </div>
@@ -78,7 +78,7 @@
                 <% end %>
               </div>
             <% end %>
-            <p>Tu as pioché <%= params[:drawed_card_codes].size%> carte(s) </p>
+            <p class="info-game">Voilà pour toi !  </p>
           <% end %>
 
 
@@ -90,11 +90,21 @@
                 <%= image_tag "cards/#{game.draw_pile_cards.second}.png", class:'draws' %>
                 <%= image_tag "cards/#{game.draw_pile_cards.third}.png", class:'draws' %>
               </div>
+
+              <p class="info-game">C'est le moment d'être malin</p>
             <% end %>
+           
+            <% if (game.next_player.id == board_player.id) && (params[:played_card_code].include?("pair")) %>
+                <div class="thief stolen-card">
+                  <%= image_tag "cards/#{params[:played_card_code]}.png", class:'draw-card' %>
+                  <p class="info-game"> Voila ce qu'on t'as volé !</p>
+              </div>
+            <% end %>
+
             <% if params[:played_card_code].include? "pair" %>
               <div class="thief">
-              <p>Tu as volé</p>
-              <%= image_tag "cards/#{game.current_player.cards.last}.png", class:'draw-card' %>
+                <%= image_tag "cards/#{game.current_player.cards.last}.png", class:'draw-card' %>
+                <p class="info-game"> Voila ce que t'as volé !</p>
               </div>
             <% end %>
           <% end %>

@@ -1,4 +1,4 @@
-<div class="begin-rules background">
+<div class="begin-rules background" data-controller="shuffle">
   <div class="main-wrapper">
     <div class="container-player-avatar">
       <% ordered_players.each_with_index do |player,index| %>
@@ -46,8 +46,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  wrapper = document.querySelector('.begin-rules');
-  setTimeout(function(){ wrapper.style.display = "none"; }, 4000);
-</script>

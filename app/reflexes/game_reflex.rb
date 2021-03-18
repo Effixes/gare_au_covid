@@ -61,8 +61,11 @@ class GameReflex < ApplicationReflex
       player.reload
       html = render(partial: 'games/board', locals: partial_locals(player))
 
+      shuffling_cards_partial = render(partial: 'games/shuffle_start', locals: partial_locals(player))
+
       cable_ready[PlayerChannel].inner_html(selector: dom_id(player), html: html).
-        insert_adjacent_html(selector: dom_id(@game), html: render(partial: 'games/rules')).
+        insert_adjacent_html(selector: dom_id(@game), html: render(partial: 'games/rules'), position: 'afterend').
+        insert_adjacent_html(selector: dom_id(@game), html: shuffling_cards_partial, position: 'afterend').
         remove_css_class(selector: dom_id(@game), name: "waiting-wrapper").broadcast_to(player)
 
     end
