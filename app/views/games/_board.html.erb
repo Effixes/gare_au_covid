@@ -1,6 +1,5 @@
 <div board id="<%= dom_id(board_player) %>">
     <!-- Affichage des differents player -->
-    <h1><%= params[:toto] %></h1>
     <div class="container-player-avatar">
       <% ordered_players.each do |player| %>
         <!-- Mise en surbrillance du joueur en cours -->
@@ -119,14 +118,14 @@
     <div class="container-player-interface">
       <div class="cards">
         <% board_player.cards.each do |card| %>
-        <!-- Card jouable -->
-          <% if playable?(card) && (board_player.id == game.current_player.id) %>
+          <% if playable?(card, board_player) && (board_player.id == game.current_player.id) %>
+            <!-- Card jouable -->
             <%= link_to (image_tag "cards/#{card}.png"), game_played_cards_path(game, {card_code: card}), method: "post", data: { controller: 'card', action: 'mouseover->card#viewCard mouseleave->card#hideCard', reflex: "click->Game#play_card", card_code: card }, class: "card__playable card card-hover-zoom" %>
           <% else %>
-          <!-- Card non jouable -->
-          <a href="" class="card card__inactif card-hover-zoom" data-controller="card" data-action="mouseover->card#viewCard mouseleave->card#hideCard">
-            <%= image_tag "cards/#{card}.png" %>
-          </a>
+            <!-- Card non jouable -->
+            <a href="" class="card card__inactif card-hover-zoom" data-controller="card" data-action="mouseover->card#viewCard mouseleave->card#hideCard">
+              <%= image_tag "cards/#{card}.png" %>
+            </a>
           <% end %>
         <% end %>
        </div>
