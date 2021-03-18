@@ -77,8 +77,9 @@ export default class extends ApplicationController {
   }
 
   removeWrapper() {
+    const wrapper = document.querySelector('[data-controller="shuffle"]');
+    wrapper.classList.add('no-opacity');
     setTimeout(() => {
-      const wrapper = document.querySelector('[data-controller="shuffle"]');
       wrapper.remove()
     }, 1000);
   }

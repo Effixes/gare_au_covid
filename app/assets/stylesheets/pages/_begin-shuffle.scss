@@ -1,15 +1,21 @@
 
 .begin-rules {
-    position:fixed;
-    width:100vw;
-    height:100vh;
-    z-index: 999;
-    //background: black;
-    left: 0;
-    top:0;
-    .card-count {
-        display:none;
-    }
+  opacity: 1;
+  position:fixed;
+  width:100vw;
+  height:100vh;
+  z-index: 999;
+  //background: black;
+  left: 0;
+  top:0;
+  .card-count {
+      display:none;
+  }
+
+  &.no-opacity {
+    transition: opacity 1s;
+    opacity: 0;
+  }
 }
 
 .decks-shuffle {
@@ -48,7 +54,7 @@
     width:50px;
     position:absolute;
   }
-  
+
   @keyframes zIndex {
     0% {
       z-index: 99;
