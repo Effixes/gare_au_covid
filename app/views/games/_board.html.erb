@@ -92,11 +92,18 @@
 
               <p class="info-game">C'est le moment d'être malin</p>
             <% end %>
+           
+            <% if (game.next_player.id == board_player.id) && (params[:played_card_code].include?("pair")) %>
+                <div class="thief stolen-card">
+                  <%= image_tag "cards/#{params[:played_card_code]}.png", class:'draw-card' %>
+                  <p class="info-game"> Voila ce qu'on t'as volé !</p>
+              </div>
+            <% end %>
+
             <% if params[:played_card_code].include? "pair" %>
               <div class="thief">
-              
-              <%= image_tag "cards/#{game.current_player.cards.last}.png", class:'draw-card' %>
-              <p class="info-game"> Voila ce que t'as volé ! </p>
+                <%= image_tag "cards/#{game.current_player.cards.last}.png", class:'draw-card' %>
+                <p class="info-game"> Voila ce que t'as volé !</p>
               </div>
             <% end %>
           <% end %>
