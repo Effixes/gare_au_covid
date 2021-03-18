@@ -11,4 +11,5 @@ class ApplicationReflex < StimulusReflex::Reflex
   # Learn more at: https://docs.stimulusreflex.com/reflexes#reflex-classes
   delegate :current_player, to: :connection
   delegate :render, to: ApplicationController
+  delegate :helpers, to: ApplicationController
 end
