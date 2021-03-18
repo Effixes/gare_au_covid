@@ -1,0 +1,13 @@
+.player-card {
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 30px;
+  background-color: red;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  left: 50%;
+  top: 200px;
+  transform: translateX(-50%);
+}

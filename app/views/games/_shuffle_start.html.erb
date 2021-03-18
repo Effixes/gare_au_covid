@@ -1,10 +1,14 @@
-<div class="begin-rules background" data-controller="shuffle">
+<div class="begin-rules background"
+     data-controller="shuffle"
+     data-shuffle-card-count-value="<%= @game.draw_pile_cards.length %>"
+     data-shuffle-players-count-value="<%= @game.players.size %>">
   <div class="main-wrapper">
     <div class="container-player-avatar">
+
       <% ordered_players.each_with_index do |player,index| %>
         <!-- Mise en surbrillance du joueur en cours -->
         <% if player.id == game.current_player.id  %>
-          <div class="player-avatar">
+          <div class="player-avatar" data-shuffle-target="avatar">
             <h3> <%= player.name %> </h3>
             <%= image_tag "#{player.avatar}", class:'avatar-medium current-player-style' %>
             <div class="card-count" id=<%= "player-card-#{index}" %>>
@@ -31,18 +35,8 @@
       <% end %>
     </div>
 
-    <div class="decks">
-      <div class="decks-shuffle" >
-        <div class="deck deck-front" id="decks-shuffle">
-           <%= image_tag "cards/back.png" %>
-        </div>
-        <div class="deck deck-middle">
-           <%= image_tag "cards/back.png" %>
-        </div>
-        <div class="deck deck-back">
-           <%= image_tag "cards/back.png" %>
-        </div>
-      </div>
+    <div class="decks" data-shuffle-target="deck">
     </div>
   </div>
+  <div data-shuffle-target="avatar" id="current-player-shuffle"></div>
 </div>

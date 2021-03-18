@@ -8,6 +8,8 @@
   <%= render 'games/board', ordered_players: @ordered_players, game: @game, board_player: @current_player %>
 </div>
 
+<%= render('games/shuffle_start', game: @game, ordered_players: @ordered_players, board_player: @current_player) %>
+
 <!-- Affichage button regles -->
 <%= render 'games/rules' %>
 
