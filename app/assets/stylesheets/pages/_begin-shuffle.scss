@@ -32,9 +32,9 @@
     animation-timing-function:cubic-bezier(0,.75,.62,1.01);
   }
   .deck-front {
-    animation: shuffleCard 1s;
+    animation: shuffleCard .8s infinite;
     animation-iteration-count: 3;
-    animation-timing-function:cubic-bezier(0,.75,.62,1.01);
+    animation-timing-function:cubic-bezier(.77,.1,.47,1);
   }
   /*.deck-middle {
     animation: shuffleCard 1s infinite;
