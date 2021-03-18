@@ -1,4 +1,12 @@
 class StartGame
+
+# draw_pile_cards = ['pair', 'mix', 'pair_pangolins', 'cluster', 'testing', 'covid', 'covid', 'cluster', 'pair_couvre_feu', 'covid', 'covid']
+
+# allan = Player.new(name: 'Allan', alive: 'true', table_position: 1, draw_card_count: 1, cadrs: ['testing', 'cluster', 'lock_down', 'mix', 'pair_teletravail', 'pair_masques','kit'])
+# ju = Player.new(name: 'Ju', alive: 'true', table_position: 2, draw_card_count: 1, cadrs: ['pair_villageoise', 'testing', 'lock_down', 'kit', 'pair_masques', 'pair_pangolins'])
+# geof = Player.new(name: 'geof', alive: 'true', table_position: 3, draw_card_count: 1, cadrs: ['testing', 'pair_pangolins','mix', 'kit', 'cluster', 'pair_teletravail'])
+
+
   # jeu sans covid et sans kit
   GAME_CARDS = {
     'cluster' => 5,

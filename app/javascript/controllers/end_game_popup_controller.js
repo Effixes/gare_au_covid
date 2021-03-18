@@ -7,6 +7,8 @@ export default class extends ApplicationController {
     const alive    = this.element.dataset.alive;
     const winner   = this.element.dataset.winner;
     const gameOver = this.element.dataset.gameOver;
+    const gameWinner = this.element.dataset.gameWinner;
+
 
     // j'ai gagne la partie
     if (winner == 'true') {
@@ -18,7 +20,7 @@ export default class extends ApplicationController {
         // icon: 'error',
         // confirmButton:
         confirmButtonText: 'Nouvelle partie ?',
-      })
+      }).then(function() {window.location = "/";});
     }
     // partie terminee, j'ai perdu
     else if (gameOver == 'true') {
@@ -26,8 +28,8 @@ export default class extends ApplicationController {
         title: 'GAME OVER !!!!',
         background: '#000000',
         imageUrl: image,
-        text: 'NOOON tu es contaminé(e) et pire que ça la partie est maintenant terminée !',
-        confirmButtonText: 'Nouvelle partie ?',
+        html: `NOOON tu es contaminé(e), pire que ça <span>${gameWinner}</span> a gagné et la partie est maintenant terminée !`,
+        confirmButtonText: 'Bybye',
       })
     }
     // J'ai perdu (COVID), le jeu est en cours
@@ -37,7 +39,7 @@ export default class extends ApplicationController {
         background: '#000000',
         imageUrl: image,
         text: 'Tu as pris beaucoup trop de risques, pas étonnant que tu sois en réa...',
-        confirmButtonText: 'ByBye !',
+        confirmButtonText: 'Bybye !',
       })
     }
   }
