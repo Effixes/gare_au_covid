@@ -40,6 +40,7 @@
          data-alive="<%= board_player.alive %>"
          data-winner="<%= game.over? && board_player.alive == true %>"
          data-game-over="<%= game.over? %>"
+         data-game-winner="<%= game.players.alive.first.name %>"
       >
       <div class="pioche-defausse">
         <h3>Defausse</h3>
