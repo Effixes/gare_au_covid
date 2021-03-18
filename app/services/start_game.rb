@@ -129,12 +129,13 @@ class StartGame
     # Initialise le jeu de chaque joueur
 
     # Jeu justine
-    @game.players[0].cards = ['pair_villageoise', 'testing', 'lock_down', 'kit', 'pair_masques', 'pair_pangolins', 'mix']
+    @game.players[0].cards = ['testing', 'cluster', 'lock_down', 'mix', 'pair_teletravail', 'pair_masques', 'kit']
     # Jeu Geoffrey
     @game.players[1].cards = ['testing', 'pair_pangolins', 'mix', 'kit', 'cluster', 'pair_teletravail', 'lock_down']
     # Initialise la pioche
     # Jeu allan
-    @game.players[2].cards = ['testing', 'cluster', 'lock_down', 'mix', 'pair_teletravail', 'pair_masques', 'kit']
+    @game.players[2].cards = ['pair_villageoise', 'testing', 'lock_down', 'kit', 'pair_masques', 'pair_pangolins', 'mix']
+
     @game.draw_pile_cards = ['pair_teletravail', 'mix', 'pair_pangolins', 'cluster', 'testing', 'covid', 'covid', 'cluster', 'pair_couvre_feu', 'covid', 'covid']
   end
 
