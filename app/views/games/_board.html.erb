@@ -1,13 +1,13 @@
 <div board id="<%= dom_id(board_player) %>">
     <!-- Affichage des differents player -->
     <div class="container-player-avatar">
-      <% ordered_players.each do |player| %>
+      <% ordered_players.each_with_index do |player,index| %>
         <!-- Mise en surbrillance du joueur en cours -->
         <% if player.id == game.current_player.id  %>
           <div class="player-avatar">
             <h3> <%= player.name %> </h3>
             <%= image_tag "#{player.avatar}", class:'avatar-medium current-player-style' %>
-            <div class="card-count">
+            <div class="card-count" id=<%= "player-card-#{index}" %>>
               <%= player.cards.length %>
             </div>
           </div>
@@ -22,7 +22,7 @@
             <div class="player-avatar">
               <h3> <%= player.name %> </h3>
               <%= image_tag "#{player.avatar}", class:'avatar-medium' %>
-              <div class="card-count">
+              <div class="card-count" id=<%= "player-card-#{index}" %>>
                 <%= player.cards.length %>
               </div>
             </div>
@@ -92,7 +92,10 @@
               </div>
             <% end %>
             <% if params[:played_card_code].include? "pair" %>
-              <p>Tu as volé la carte: <%= game.current_player.cards.last %> </p>
+              <div class="thief">
+              <p>Tu as volé</p>
+              <%= image_tag "cards/#{game.current_player.cards.last}.png", class:'draw-card' %>
+              </div>
             <% end %>
           <% end %>
 
@@ -132,3 +135,5 @@
        </div>
     </div>
   </div>
+
+

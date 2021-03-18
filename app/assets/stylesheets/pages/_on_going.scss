@@ -39,7 +39,9 @@
   width: 61px;
   right: -25px;
   bottom: -70px;
-
+  padding-top: 44px;
+  font-weight: bold;
+  font-size: 24px;
 }
 
 // Class avatar joueur mort
@@ -142,6 +144,7 @@
   transition:.5s;
   top:0px;
   transform:rotate(-23deg);
+  box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.432);
 
   &__playable {
 
@@ -155,7 +158,7 @@
     width: 100%;
     height: 100%;
     background-image: linear-gradient(120deg, #41414193, #4e4e4e);
-    opacity: .7;
+    opacity: .6;
   }
 }
 
@@ -166,7 +169,7 @@
 
 
 $rotate : -5;
-@for $i from 1 through 10 {
+@for $i from 1 through 15 {
   .card:nth-child(1n + #{$i}) {
     transform: translate(#{$i*7}em, #{$i/1}em) rotate(#{$rotate + $i*3}deg);
   }
@@ -225,6 +228,13 @@ $rotate : -5;
 }
 
 
+.draw-many-cards{
+  display:flex;
+  position: absolute;
+  left: -111px;
+  top: 12px;
+}
+
 .draw-card {
   width:270px;
   perspective: 500px;
@@ -235,6 +245,19 @@ $rotate : -5;
     transition: transform 1s;
     transform-style: preserve-3d;
     transform: rotateY( 180deg ) scale(0.4);
+  }
+}
+
+.draws{
+  width:250px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.432);
+}
+
+$rotate : -5;
+@for $i from 1 through 3 {
+  .draws:nth-child(1n + #{$i}) {
+    transform: translate(#{$i*-4}em, #{$i/3}em) rotate(#{$rotate + $i*3}deg);
+    z-index: 999 - $i;
   }
 }
 
@@ -298,11 +321,6 @@ $rotate : -5;
 
 // Quand plusieurs cartes piochée
 
-.draw-many-cards{
-  display:flex;
-}
 
-.draws{
-  width:143px;
-  height:200px;
-}
+
+
