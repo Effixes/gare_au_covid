@@ -23,13 +23,18 @@ export default class extends ApplicationController {
     }
 
     cards.forEach((n) => {
-      var cardTmp = '<span class="player-card">' + n + '</span>';
+      var cardTmp = '<span class="player-card"></span>';
       this.deckTarget.insertAdjacentHTML('beforeend', cardTmp);
     });
 
     this.avatarTargets;
 
+
+    //this.avatarTargets.forEach(avatar => console.log("Avatar" + avatar.offsetLeft));
+
+
     this.deckTarget;
+
 
     var avatarIndex = 0;
     const xTargets = [];
@@ -39,16 +44,19 @@ export default class extends ApplicationController {
       const targetPlayer = this.avatarTargets[avatarIndex];
 
 
-
-
-
       const xTarget = 0;
       const yTarget = 0;
 
-      xTargets.push(xTarget);
-      yTargets.push(yTarget);
 
 
+      this.avatarTargets.forEach(function(avatar) {
+        //yTargets.push(avatar.offsetTop);
+        //console.log(avatar.offsetLeft);
+        xTargets.push(avatar.offsetLeft);
+        xTargets.push(avatar.offsetTop);
+      });
+
+      //yTargets.push(yTarget);
 
       cards.pop();
       if ((avatarIndex + 1) >= this.avatarTargets.length) {
@@ -60,7 +68,7 @@ export default class extends ApplicationController {
 
     gsap.to(".player-card", {
       duration: 1,
-      rotation: 90,
+      rotation: 360,
       y: gsap.utils.wrap(yTargets),
       x: gsap.utils.wrap(xTargets),
       stagger: 0.5
