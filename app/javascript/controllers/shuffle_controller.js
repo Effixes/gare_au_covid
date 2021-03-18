@@ -10,9 +10,8 @@ export default class extends ApplicationController {
   static targets = ['deck', 'avatar']
 
   connect () {
+    this.wrapper = this.element
     this.shuffleCards();
-
-    // setTimeout(this.removeWrapper, 10000);
   }
 
   shuffleCards() {
@@ -27,56 +26,61 @@ export default class extends ApplicationController {
       this.deckTarget.insertAdjacentHTML('beforeend', cardTmp);
     });
 
-    this.avatarTargets;
-
-
     //this.avatarTargets.forEach(avatar => console.log("Avatar" + avatar.offsetLeft));
 
+    var avatarIndex    = 0;
+    const xTargets     = [];
+    const yTargets     = [];
+    const deckBoudings = this.deckTarget.getBoundingClientRect();
 
-    this.deckTarget;
-
-
-    var avatarIndex = 0;
-    const xTargets = [];
-    const yTargets = [];
     while (cards.length > 0) {
 
-      const targetPlayer = this.avatarTargets[avatarIndex];
+      const targetPlayer   = this.avatarTargets[avatarIndex];
+      // const playerBoudings = targetPlayer.getBoundingClientRect();
+      const { x, y, right, left, top, bottom } = targetPlayer.getBoundingClientRect();
+
+      const xTarget = x - deckBoudings.x + (right - left);
+      const yTarget = y - deckBoudings.y  + (bottom - top);
 
 
-      const xTarget = 0;
-      const yTarget = 0;
+      xTargets.push(xTarget);
+      yTargets.push(yTarget);
 
 
-
-      this.avatarTargets.forEach(function(avatar) {
-        //yTargets.push(avatar.offsetTop);
-        //console.log(avatar.offsetLeft);
-        xTargets.push(avatar.offsetLeft);
-        xTargets.push(avatar.offsetTop);
-      });
+      // this.avatarTargets.forEach(function(avatar) {
+      //   //yTargets.push(avatar.offsetTop);
+      //   //console.log(avatar.offsetLeft);
+      //   xTargets.push(avatar.offsetLeft);
+      //   xTargets.push(avatar.offsetTop);
+      // });
 
       //yTargets.push(yTarget);
 
       cards.pop();
+
       if ((avatarIndex + 1) >= this.avatarTargets.length) {
         avatarIndex = 0;
       } else {
         avatarIndex += 1;
       }
+
+      if (cards.length === 0) { break; }
     };
 
-    gsap.to(".player-card", {
+    const toto = gsap.to(".player-card", {
       duration: 1,
       rotation: 360,
       y: gsap.utils.wrap(yTargets),
       x: gsap.utils.wrap(xTargets),
       stagger: 0.5
-    });
+    }).eventCallback("onComplete", this.removeWrapper);
   }
 
   removeWrapper() {
-    this.element.remove()
+    setTimeout(() => {
+      const wrapper = document.querySelector('[data-controller="shuffle"]');
+      wrapper.remove()
+    }, 1000);
   }
 }
 

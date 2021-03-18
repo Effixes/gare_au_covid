@@ -7,31 +7,13 @@
 
       <% ordered_players.each_with_index do |player,index| %>
         <!-- Mise en surbrillance du joueur en cours -->
-        <% if player.id == game.current_player.id  %>
-          <div class="player-avatar" data-shuffle-target="avatar">
-            <h3> <%= player.name %> </h3>
-            <%= image_tag "#{player.avatar}", class:'avatar-medium current-player-style' %>
-            <div class="card-count" id=<%= "player-card-#{index}" %>>
-              <%= player.cards.length %>
-            </div>
+        <div class="player-avatar" data-shuffle-target="avatar">
+          <h3> <%= player.name %> </h3>
+          <%= image_tag "#{player.avatar}", class:"avatar-medium #{'current-player-style' if (player.id == game.current_player.id) }" %>
+          <div class="card-count" id=<%= "player-card-#{index}" %>>
+            <%= player.cards.length %>
           </div>
-        <% else %>
-          <!-- Gestion de l'affichage du joueur qui ne joue pas -->
-          <% if player.alive == false %>
-             <div class="player-avatar-dead">
-              <h3> <%= player.name %> </h3>
-              <%= image_tag "#{player.avatar}", class:'avatar-medium-dead' %>
-            </div>
-          <% else %>
-            <div class="player-avatar">
-              <h3> <%= player.name %> </h3>
-              <%= image_tag "#{player.avatar}", class:'avatar-medium' %>
-              <div class="card-count" id=<%= "player-card-#{index}" %>>
-                <%= player.cards.length %>
-              </div>
-            </div>
-          <% end %>
-        <% end %>
+        </div>
       <% end %>
     </div>
 

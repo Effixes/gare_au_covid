@@ -5,7 +5,7 @@ export default class extends ApplicationController {
   }
 
   viewCard() {
-    console.log("card view")
+    // console.log("card view")
 
     let cardViewer = document.getElementById("card-viewer");
     let drawCard   = document.getElementById('draw-card');
@@ -21,7 +21,7 @@ export default class extends ApplicationController {
   }
 
   hideCard() {
-    console.log("card hidden")
+    // console.log("card hidden")
 
     let cardViewer = document.getElementById("card-viewer");
 
