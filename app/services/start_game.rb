@@ -30,10 +30,7 @@ class StartGame
   end
 
   def call
-    # repartir cartes
-    dispatch_cards
-    # definir table_position des players
-    initialize_players_position
+    setup_cards_and_positions
     # position du current_player
     set_current_player
     # statut du jeu : demarre
@@ -47,11 +44,11 @@ class StartGame
   def dispatch_cards
     # repartir cartes :
     covid_kit = {
-      #'kit' => 6 - @game.players_count,
-      # 'covid' => @game.players_count - 1
+      'kit' => 6 - @game.players_count,
+      'covid' => @game.players_count
       # Version pour test mort rapide
       # 'kit' => 0,
-       'covid' => 5
+      # 'covid' => 5
     }
 
     # un kit a chaque joueur
@@ -109,5 +106,52 @@ class StartGame
     # statut du jeu : demarre
     # passer le statut a on_going
     @game.status = 'on_going'
+  end
+
+  def setup_cards_and_positions
+    if ENV['DEMO'] == "true"
+      dispatch_cards_demo
+      # definir table_position des players
+      initialize_players_position_demo
+      # Set current players
+      set_current_player_demo
+    else
+      dispatch_cards
+      # definir table_position des players
+      initialize_players_position
+      # Set current player
+      set_current_player
+    end
+  end
+
+  # Version pour la demo
+  def dispatch_cards_demo
+    # Initialise le jeu de chaque joueur
+
+    # Jeu justine
+    @game.players[0].cards = ['pair_villageoise', 'testing', 'lock_down', 'kit', 'pair_masques', 'pair_pangolins', 'mix']
+    # Jeu Geoffrey
+    @game.players[1].cards = ['testing', 'pair_pangolins', 'mix', 'kit', 'cluster', 'pair_teletravail', 'lock_down']
+    # Initialise la pioche
+    # Jeu allan
+    @game.players[2].cards = ['testing', 'cluster', 'lock_down', 'mix', 'pair_teletravail', 'pair_masques', 'kit']
+    @game.draw_pile_cards = ['pair_teletravail', 'mix', 'pair_pangolins', 'cluster', 'testing', 'covid', 'covid', 'cluster', 'pair_couvre_feu', 'covid', 'covid']
+  end
+
+  def initialize_players_position_demo
+    # definir table_position des players
+    # Ne melande pas le tableau de joueur
+    @shuffled_players = @game.players.order(:created_at)
+    # itirer sur chaque joueur index pour donner et sauver leur position
+    @shuffled_players.each_with_index do |player, index|
+      player.table_position = index
+      player.save
+    end
+  end
+
+  def set_current_player_demo
+    # position du current_player
+    # definir player_position.first comme joueur -> @game.current_player
+    @game.current_player = @shuffled_players.last
   end
 end
