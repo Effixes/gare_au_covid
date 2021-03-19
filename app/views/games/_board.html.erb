@@ -31,7 +31,11 @@
       <% end %>
     </div>
 
-    <p><span class="last-action-message"><%= params[:last_action] || "coucou" %></span></p>
+    <p>
+      <span class="last-action-message <%= 'no-opacity' unless params[:last_action].present? %>">
+        <%= params[:last_action] %>
+      </span>
+    </p>
 
     <!--  Affichage de la defausse et de la pioche -->
     <div class="container-pioche-defausse"

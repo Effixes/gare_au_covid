@@ -3,34 +3,30 @@ import { gsap }              from "gsap";
 
 export default class extends ApplicationController {
   static values = {
-    cardCount: Number,
+    cardCount:    Number,
     playersCount: Number
   }
 
   static targets = ['deck', 'avatar']
 
   connect () {
-    this.wrapper = this.element
     this.shuffleCards();
   }
 
   shuffleCards() {
     var cardCount = this.avatarTargets.length * 7;
     var cards = [];
-    for(var i = 0; i < cardCount;  i++) {
-      cards.push(i)
-    }
+    for(var i = 0; i < cardCount;  i++) { cards.push(i) }
 
     cards.forEach((n) => {
       var cardTmp = '<span class="player-card"></span>';
       this.deckTarget.insertAdjacentHTML('beforeend', cardTmp);
     });
 
-    //this.avatarTargets.forEach(avatar => console.log("Avatar" + avatar.offsetLeft));
-
     var avatarIndex    = 0;
     const xTargets     = [];
     const yTargets     = [];
+    const rotations    = [];
     const deckBoudings = this.deckTarget.getBoundingClientRect();
 
     while (cards.length > 0) {
@@ -39,22 +35,12 @@ export default class extends ApplicationController {
       // const playerBoudings = targetPlayer.getBoundingClientRect();
       const { x, y, right, left, top, bottom } = targetPlayer.getBoundingClientRect();
 
-      const xTarget = x - deckBoudings.x + (right - left);
+      const xTarget = x - deckBoudings.x + (right - left) / 2;
       const yTarget = y - deckBoudings.y  + (bottom - top);
-
 
       xTargets.push(xTarget);
       yTargets.push(yTarget);
-
-
-      // this.avatarTargets.forEach(function(avatar) {
-      //   //yTargets.push(avatar.offsetTop);
-      //   //console.log(avatar.offsetLeft);
-      //   xTargets.push(avatar.offsetLeft);
-      //   xTargets.push(avatar.offsetTop);
-      // });
-
-      //yTargets.push(yTarget);
+      rotations.push(this.randomNumber());
 
       cards.pop();
 
@@ -67,12 +53,12 @@ export default class extends ApplicationController {
       if (cards.length === 0) { break; }
     };
 
-    const toto = gsap.to(".player-card", {
+    gsap.to(".player-card", {
       duration: 1,
-      rotation: 360,
-      y: gsap.utils.wrap(yTargets),
-      x: gsap.utils.wrap(xTargets),
-      stagger: 0.5
+      rotation: gsap.utils.wrap(rotations),
+      y:        gsap.utils.wrap(yTargets),
+      x:        gsap.utils.wrap(xTargets),
+      stagger:  0.5
     }).eventCallback("onComplete", this.removeWrapper);
   }
 
@@ -82,6 +68,10 @@ export default class extends ApplicationController {
     setTimeout(() => {
       wrapper.remove()
     }, 1000);
+  }
+
+  randomNumber() {
+    return Math.random() * (390 - 330) + 330;
   }
 }
 
