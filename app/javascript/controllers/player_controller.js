@@ -6,7 +6,7 @@ export default class extends ApplicationController {
   static values = { id: Number }
 
   connect () {
-    console.log("coucou le chat",this.idValue)
+    console.log("coucou le chat")
     this.channel = consumer.subscriptions.create(
       {
         channel: 'PlayerChannel',

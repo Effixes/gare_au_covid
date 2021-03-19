@@ -1,0 +1,22 @@
+.player-card {
+  position: absolute;
+  display: block;
+  width: 115px;
+  height: 150px;
+  background: url("cards/back.png");
+  background-size:cover;
+  border-radius:8px;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  /*left: 50%;*/
+  /*top: 50%;*/
+  transform: translateX(-50%);
+}
+
+#current-player-shuffle {
+  position: relative;
+  top: -100px;
+  width: 100px;
+  margin: 0 auto;
+}
